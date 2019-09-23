@@ -19,15 +19,15 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Ideas Tracker</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse justify-content-between">
-                    <ul class="navbar-nav mr-auto">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white">
+            <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://i.imgur.com/o8Lo34z.png"/></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+             <div class="navbar-collapse collapse justify-content-between">
+                    <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -40,9 +40,17 @@
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
-            </div>
+            </div> <!-- container fluid -->
         </nav>
     </header>
+
+    <div class="container-fluid" id="image">
+        <div class="hero-image">
+            <img src="https://i.imgur.com/grP9KVs.png" class="big-image-logo"/>
+            <h1 id="image-text"></h1>
+        </div>
+    </div>
+
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
@@ -52,7 +60,9 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2019 - AND Digital - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <p>
+                &copy; 2019 - AND Digital - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </p>
         </div>
     </footer>
 
