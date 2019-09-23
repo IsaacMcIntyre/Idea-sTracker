@@ -57,9 +57,12 @@ namespace IdeasTracker.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("Id,RaisedBy,CustomerProblem,ProblemDescription,ProductOwner,Status,BootcampAssigned,SolutionDescription,Links,IsAdopted,AdoptedBy,AdoptionValue,AdoptionReason")] BackLog backLog)
+        public async Task<IActionResult> Create([Bind("CustomerProblem,ProblemDescription")] BackLog backLog)
         {
             backLog.RaisedBy = User.Identity.Name;
+            backLog.Status = "Pending";
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(backLog);
