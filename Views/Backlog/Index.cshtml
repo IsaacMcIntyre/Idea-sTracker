@@ -13,43 +13,59 @@
     <thead>
       <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Artist)
+            @Html.DisplayNameFor(model => model.Id)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Venue)
+            @Html.DisplayNameFor(model => model.RaisedBy)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ShowDate)
+            @Html.DisplayNameFor(model => model.CustomerProblem)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EnteredBy)
+            @Html.DisplayNameFor(model => model.Status)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.BootcampAssigned)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductOwner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdoptedBy)
+        </th>
       </tr>
     </thead>
     <tbody>
       @foreach (var item in Model) {  
       <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Artist)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Venue)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShowDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EnteredBy)
-        </td>
-        
+          <td>
+              @Html.DisplayFor(modelItem => item.Id)
+          </td>
+          <td>
+              @Html.DisplayFor(modelItem => item.RaisedBy)
+          </td>
+          <td>
+              @Html.DisplayFor(modelItem => item.CustomerProblem)
+          </td>
+          <td>
+              @Html.DisplayFor(modelItem => item.Status)
+          </td>
+          <td>
+              @Html.DisplayFor(modelItem => item.BootcampAssigned)
+          </td>
+          <td>
+              @Html.DisplayFor(modelItem => item.ProductOwner)
+          </td>
+          <td>
+              @Html.DisplayFor(modelItem => item.AdoptedBy)
+          </td>
         <td>
           <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-          @if (User.Identity.IsAuthenticated && item.EnteredBy == User.Identity.Name)
+          @if (User.Identity.IsAuthenticated && item.RaisedBy == User.Identity.Name)
           {
             <span> |</span>
             <a asp-action="Edit" asp-route-id="@item.Id">Edit</a><span> |</span>
-            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            <!--<a asp-action="Delete" asp-route-id="@item.Id">Delete</a> -->
           }
         </td>
       </tr>

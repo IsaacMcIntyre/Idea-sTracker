@@ -57,9 +57,9 @@ namespace IdeasTracker.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("Id,Artist,Venue,ShowDate")] BackLog backLog)
+        public async Task<IActionResult> Create([Bind("Id,RaisedBy,CustomerProblem,ProblemDescription,ProductOwner,Status,BootcampAssigned,SolutionDescription,Links,IsAdopted,AdoptedBy,AdoptionValue,AdoptionReason")] BackLog backLog)
         {
-            backLog.EnteredBy = User.Identity.Name;
+            backLog.RaisedBy = User.Identity.Name;
             if (ModelState.IsValid)
             {
                 _context.Add(backLog);
@@ -94,7 +94,7 @@ namespace IdeasTracker.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Artist,Venue,ShowDate")] BackLog backLog)
         {
-            backLog.EnteredBy = User.Identity.Name;
+            backLog.RaisedBy = User.Identity.Name;
             if (id != backLog.Id)
             {
                 return NotFound();
