@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeasTracker", "IdeasTracker.csproj", "{F2AE04BB-94EE-4CC5-907B-DE10ECF14249}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2AE04BB-94EE-4CC5-907B-DE10ECF14249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2AE04BB-94EE-4CC5-907B-DE10ECF14249}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2AE04BB-94EE-4CC5-907B-DE10ECF14249}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2AE04BB-94EE-4CC5-907B-DE10ECF14249}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
