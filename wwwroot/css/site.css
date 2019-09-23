@@ -1,6 +1,13 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+
+/*Fonts**/
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap');
+
+/*End of fonts*/
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -43,14 +50,81 @@ html {
 
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 90px;
 }
+
+p, h1, h2, h3, h4 {
+   font-family: 'Poppins', sans-serif;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+  height: 90px;
+  background-color: #323232;
+  line-height: 90px; /* Vertically center the text there */
 }
+
+.footer p {
+    color: #fff;
+    text-align: center;
+}
+ 
+/* Navbar Styling
+-------------------------------------------------- */
+
+.navbar-nav li {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.navbar {
+    padding: 1em;
+}
+
+.navbar-brand img {
+    height: 2.5em;
+}
+
+a.login {
+    background: #fe323d;
+    padding: 0.75em 1em;
+    border-radius: 0.25em;
+    color: #fff;
+}
+
+img.big-image-logo {
+    height: 9em;
+}
+
+.hero-image {
+    text-align: center;
+    padding: 8em 0em 6em 0em;
+}
+
+#image {
+    background-size: cover;
+}
+
+#image h1 {
+    font-size: 42px;
+    padding-top: 0.5em;
+    color: #fff;
+}
+
+
+
+/* Media Queries for Navbar */
+
+@media (min-width: 768px) {
+    .navbar-brand img {
+        margin-right: -13em;
+    }
+    a.login {
+    }
+}
+
