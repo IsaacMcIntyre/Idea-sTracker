@@ -1,6 +1,6 @@
-# Live Music Finder
+# Ideas Tracker
 
-This is an application that allows users to enter live music shows that they know about so that others can see upcoming shows.
+This application allows users to raise and track ideas so that people could adopt and work on it
 
 ## Getting Started
 
