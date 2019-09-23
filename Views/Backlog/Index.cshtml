@@ -5,18 +5,48 @@
 }
 
 @section scripts{
-    <script>
-            $('#image').css('background-image', 'url(https://i.imgur.com/8Cl8dJE.png)');
-            $("#image-text").text("New word");
-            </script>
+<script>$('#image').css('background-image', 'url(https://i.imgur.com/5oNDsrm.png)');
+    $("#image-text").text("Let\'s see what our ANDis have been up to!");</script>
 }
 
-<h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="AND-button" asp-action="Create"><i class="fas fa-comment-medical"></i> Create New</a>
 </p>
-<table class="table">
+<div class="row top-table-imgs">
+    <div class="col-sm-4">
+
+        <div class="col-lg-6 FLeft">
+            <img class="img-responsive" src="https://i.imgur.com/IFTNUEp.jpg" />
+        </div>
+        <div class="col-lg-6 Fleft">
+            <p>Idea</p>
+        </div>
+
+    </div>
+    <div class="col-sm-4">
+
+        <div class="col-lg-6 FLeft">
+            <img class="img-responsive" src="https://static.andigital.com/wp-content/uploads/2015/03/20162148/Robot.jpg" />
+        </div>
+        <div class="col-lg-6 Fleft">
+            <p>Bootcamp</p>
+        </div>
+
+    </div>
+    <div class="col-sm-4">
+
+        <div class="col-lg-6 FLeft">
+            <img class="img-responsive" src="https://static.andigital.com/wp-content/uploads/2017/08/08160428/joshua-hibbert-22841-copy.png" />
+        </div>
+        <div class="col-lg-6 Fleft">
+            <p>Where next</p>
+        </div>
+
+    </div>
+</div>
+<div class="table-responsive">
+   <table class="table">
+    
     <thead>
       <tr>
         <th>
@@ -79,3 +109,4 @@
       }
     </tbody>
 </table>
+    </div>
