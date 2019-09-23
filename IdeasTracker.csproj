@@ -19,4 +19,7 @@
     <PackageReference Include="Okta.AspNetCore" Version="1.1.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\CreateIdeaModel.cs" />
+  </ItemGroup>
 </Project>
