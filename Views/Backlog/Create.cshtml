@@ -4,12 +4,18 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+@section scripts{
+<script>$('#image').css('background-image', 'url(https://i.imgur.com/APzkiMi.jpg)');
+    $("#image-text").text("Submit your awesome idea!");</script>
+}
 
-<h4>LiveShow</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div id="create" class="row">
+   
+    <div class="col-md-12">
+        <h1>Build week project submission.</h1>
+    </div>
+
+    <div class="col-md-7 mx-auto">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -23,7 +29,7 @@
                 <span asp-validation-for="ProblemDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-               <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
 
             </div>
         </form>
@@ -31,6 +37,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="AND-button"><i class="fas fa-arrow-left"></i> Back to List</a>
 </div>
 
