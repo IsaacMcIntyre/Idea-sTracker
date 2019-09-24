@@ -86,14 +86,16 @@ namespace IdeasTracker.Controllers
         {
             var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == backLog.Id);
 
-            if (!backlogItem.ProductOwner.Equals(""))
+            if (!string.IsNullOrWhiteSpace(backLog.ProductOwner))
             {
-                backlogItem.Status = "Assigned";
+                backlogItem.Status = "Adopted";
+                backlogItem.ProductOwner = backLog.ProductOwner;
             }
 
-            if(backlogItem.Status.Equals("bootcamp completed", StringComparison.InvariantCultureIgnoreCase))
+
+            if(backlogItem.Status.Equals("Project Adoptable", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (backlogItem.SolutionDescription.Equals(""))
+                if (string.IsNullOrWhiteSpace(backlogItem.SolutionDescription))
                 {
                     return NotFound();
                 }
@@ -101,9 +103,9 @@ namespace IdeasTracker.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Add(backLog);
+                _context.Update(backlogItem);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index));
             }
             return View(backLog);
         }
