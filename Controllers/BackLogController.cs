@@ -19,7 +19,7 @@ namespace IdeasTracker.Controllers
         {
             _context = context;
         }
-
+        [Authorize]
         // GET: BackLogItem
         public async Task<IActionResult> Index()
         {
@@ -45,7 +45,7 @@ namespace IdeasTracker.Controllers
         }
 
         // GET: BackLogItem/Create
-        [Authorize]
+        [Authorize(Roles = "Club Tenzing")]
         public IActionResult Create()
         {
             return View();

@@ -8,12 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IdeasTracker.Controllers
 {
-    public class RolesController : Controller
+    public class ErrorController : Controller
     {
         // GET: /<controller>/
         public IActionResult Index()
         {
             return View();
         }
+        
     }
 }
