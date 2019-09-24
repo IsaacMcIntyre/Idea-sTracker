@@ -4,8 +4,21 @@
     ViewData["Title"] = "Adopt";
 }
 
-<div class="product-info">
-    <h1>Details for <span>@Model.CustomerProblem</span></h1>
+@section scripts{
+<script>$('#image').css('background-image', 'url(https://i.imgur.com/9jlbVYa.png)');
+    $("#image-text").text("Lets celebrate and adopt some ANDis projects!");
+    $(window).scroll(function () {
+        $(".hero-image").children().css("opacity", 1 - $(window).scrollTop() / 250);
+    });</script>
+}
+
+<div class="row">
+
+    <div class="col-lg-12">
+        <h1 class="details-header">Details for <span>@Model.CustomerProblem</span></h1>
+    </div>
+
+    <div class="col-lg-4">
 
     <div class="row">
         <div class="col-sm-4">

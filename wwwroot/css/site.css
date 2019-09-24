@@ -185,7 +185,7 @@ img.big-image-logo {
 #create h1 {
     margin-left: 15px;
     text-align: center;
-    margin-top: 0.25em;
+    margin-top: 0.5em;
     margin-bottom: 0.75em;
 }
 
@@ -198,6 +198,20 @@ img.big-image-logo {
         text-align: center;
         margin-bottom: 0.75em;
     }
+
+select#status {
+    background: #f2f2f2;
+    padding: 1em 1em;
+    border: 1px solid #f3f3f3;
+    width: 100%;
+    height: 3.6em;
+    margin-top: 3px;
+    text-indent: 0.5em;
+}
+
+#editButtons {
+    margin-top: 1em;
+}
 
 /***/
 
@@ -287,6 +301,8 @@ a.AND-button:hover {
 /**/
 .table thead th {
     background: #f3f3f3;
+    font-size: 0.8em;
+
 }
 
 .table th, .table td {
@@ -337,7 +353,7 @@ a.AND-button:hover {
 
 /* Status */
 
-.Idea-Pending {
+.Pending {
     color: #6c9deb;
 }
 
@@ -354,7 +370,7 @@ a.AND-button:hover {
 }
 
 .Adopted {
-    color: #ffffff;
+    color: #ff05df;
 }
 
 .links-link {
