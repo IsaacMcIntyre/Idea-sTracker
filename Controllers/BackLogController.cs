@@ -80,14 +80,24 @@ namespace IdeasTracker.Controllers
 
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Authorize]
-        public async Task<IActionResult> EditIdea([Bind("Id,ProductOwner,BootcampAssigned,SolutionDescription")] BackLog backLog)
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> EditIdea([Bind("Id,ProductOwner,BootcampAssigned,SolutionDescription, Status")] BackLog backLog)
         {
             var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == backLog.Id);
-            backLog.RaisedBy = User.Identity.Name;
-            backLog.Status = "Pending";
 
+            if (!backlogItem.ProductOwner.Equals(""))
+            {
+                backlogItem.Status = "Assigned";
+            }
+
+            if(backlogItem.Status.Equals("bootcamp completed", StringComparison.InvariantCultureIgnoreCase))
+            {
+                if (backlogItem.SolutionDescription.Equals(""))
+                {
+                    return NotFound();
+                }
+            }
 
             if (ModelState.IsValid)
             {
@@ -165,10 +175,11 @@ namespace IdeasTracker.Controllers
             return View(_backlogToBackLogModelConverter.Convert(backLogItem));
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Adopt([Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backLog)
+        public async Task<IActionResult> Adopt([Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backLog) 
         {
 
             if (ModelState.IsValid)
