@@ -9,8 +9,10 @@
         $("#image-text").text("Let\'s see what our ANDis have been up to!");</script>
 }
 
+
 <div class="row top-table-imgs">
-    <div class="col-sm-4">
+
+    <div class="col-lg-4">
 
         <div class="col-lg-6 FLeft">
             <img class="img-responsive" src="https://i.imgur.com/IFTNUEp.jpg" />
@@ -20,7 +22,7 @@
         </div>
 
     </div>
-    <div class="col-sm-4 second-child">
+    <div class="col-lg-4 second-child">
 
         <div class="col-lg-6 FLeft">
             <img class="img-responsive" src="https://static.andigital.com/wp-content/uploads/2015/03/20162148/Robot.jpg" />
@@ -30,7 +32,7 @@
         </div>
 
     </div>
-    <div class="col-sm-4 final-child">
+    <div class="col-lg-4 final-child">
 
         <div class="col-lg-6 FLeft">
             <img class="img-responsive" src="https://i.imgur.com/5oNDsrm.png" />
@@ -84,7 +86,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.CustomerProblem)
                 </td>
-                <td>
+                <td class="@Html.DisplayNameFor(model => model.Status)">
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
