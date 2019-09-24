@@ -4,6 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
+
 @section scripts{
 <script>$('#image').css('background-image', 'url(https://i.imgur.com/YA5OtMi.png)');
     $("#image-text").text("Edit Project");</script>
@@ -12,36 +13,79 @@
 <!--
 <h1>Edit</h1>
 
-<h4>LiveShow</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Artist" class="control-label"></label>
-                <input asp-for="Artist" class="form-control" />
-                <span asp-validation-for="Artist" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Venue" class="control-label"></label>
-                <input asp-for="Venue" class="form-control" />
-                <span asp-validation-for="Venue" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShowDate" class="control-label"></label>
-                <input asp-for="ShowDate" class="form-control" />
-                <span asp-validation-for="ShowDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+<div class="product-info">
+    <h1>Details for <span>@Model.CustomerProblem</span></h1>
+
+    <dl class="row">
+        <div class="col-sm-6">
+            <dt class="col-sm-4">
+                <p class="">
+                    @Html.DisplayNameFor(model => model.Id)
+                    <div class="text-display">
+                        @Model.Id
+                    </div>
+                <p />
+            </dt>
+            <dt class="col-sm-4">
+                <p>
+                    @Html.DisplayNameFor(model => model.CustomerProblem)
+                    <div class="text-display">
+                        @Model.CustomerProblem
+                    </div>
+                </p>
+            </dt>
+            <dt class="col-sm-4">
+                <p>
+                    @Html.DisplayNameFor(model => model.ProblemDescription)
+                    <div class="text-display">
+                        @Model.ProblemDescription
+                    </div>
+                </p>
+            </dt>
+            <dt class="col-sm-4">
+                <p>
+                    @Html.DisplayNameFor(model => model.Status)
+                    <div class="text-display">
+                        @Model.Status
+                    </div>
+                </p>
+            </dt>
+        </div>
+        <div class="col-sm-6">
+            <dt class="col-sm-4">
+                <p>
+                    @Html.DisplayNameFor(model => model.ProductOwner)
+                    <div class="text-display">
+                        @Model.ProductOwner
+                    </div>
+                </p>
+            </dt>
+            <dt class="col-sm-4">
+                <p>
+                    @Html.DisplayNameFor(model => model.BootcampAssigned)
+                    <div class="text-display">
+                        @Model.BootcampAssigned
+                    </div>
+                </p>
+            </dt>
+            <dt class="col-sm-4">
+                <p>
+                    @Html.DisplayNameFor(model => model.SolutionDescription)
+                    <div class="text-display">
+                        @Model.SolutionDescription
+                    </div>
+                </p>
+            </dt>
+        </div>
+    </dl>
 </div>
- -->
 <div>
-    <a asp-action="Index">Back to List</a>
+    @if (User.Identity.IsAuthenticated && Model.RaisedBy == User.Identity.Name)
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a><span> |</span>
+        <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a><span> |</span>
+    }
+    <a asp-action="Index" class="AND-button">Back to List</a>
 </div>
+
 

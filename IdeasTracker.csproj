@@ -24,5 +24,6 @@
   <ItemGroup> 
     <Folder Include="Views\Account\" />  
     <Compile Remove="Models\CreateIdeaModel.cs" />  
+    <Folder Include="Converters\" />
   </ItemGroup>
 </Project>
