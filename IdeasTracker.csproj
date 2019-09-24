@@ -24,5 +24,8 @@
   <ItemGroup> 
     <Folder Include="Views\Account\" />  
     <Compile Remove="Models\CreateIdeaModel.cs" />  
+    <Folder Include="Attributes\" />
+    <Folder Include="IdeasTracker.Entities\" />
+    <Folder Include="Views\Role\" />
   </ItemGroup>
 </Project>

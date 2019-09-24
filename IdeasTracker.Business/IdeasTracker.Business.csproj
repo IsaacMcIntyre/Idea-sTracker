@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Enums\" />
+    <Folder Include="Uows\" />
+    <Folder Include="Uows\Interfaces\" />
+    <Folder Include="Converters\" />
+    <Folder Include="Converters\Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Enums\Roles.json" />
+  </ItemGroup>
+</Project>

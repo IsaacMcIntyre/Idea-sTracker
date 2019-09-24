@@ -1,0 +1,59 @@
+﻿@model IEnumerable<IdeasTracker.Models.UserModel>
+
+@{
+    ViewData["Title"] = "Roles";
+}
+
+@section scripts{
+<script>$('#image').css('background-image', 'url(https://i.imgur.com/5oNDsrm.png)');
+    $("#image-text").text("Assign Roles to Andis");</script>
+}
+ 
+<div class="table-responsive">
+   <table class="table">
+    
+    <thead>
+      <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role)
+        </th>
+          <th>
+
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var item in Model) {  
+      <tr>
+          <td>
+              @Html.DisplayFor(modelItem => item.Id)
+          </td>
+          <td>
+              @Html.DisplayFor(modelItem => item.Name)
+          </td>
+          <td>
+              @Html.DisplayFor(modelItem => item.Email)
+          </td>
+          <td>
+              @Html.DisplayFor(modelItem => item.Role)
+          </td>
+          <td>
+              <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> 
+          </td>
+      </tr>
+      }
+    </tbody>
+</table>
+   <p>
+       <a class="AND-button" asp-action="Create"><i class="fas fa-comment-medical"></i> Create New</a>
+   </p>
+    </div>
