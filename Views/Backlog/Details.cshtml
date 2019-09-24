@@ -3,20 +3,19 @@
 @{
     ViewData["Title"] = "Details";
 }
-<h1>Details</h1>
 
-<div>
-    <h4>@Model.CustomerProblem</h4>
+<div class="product-info">
+    <h1>Details for <span>@Model.CustomerProblem</span></h1>
 
     <dl class="row">
         <div class="col-sm-6">
             <dt class="col-sm-4">
-                <p>
+                <p class="">
                     @Html.DisplayNameFor(model => model.Id)
                     <div class="text-display">
                         @Model.Id
                     </div>
-                </p>
+                <p/>
             </dt>
             <dt class="col-sm-4">
                 <p>
@@ -77,5 +76,5 @@
         <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a><span> |</span>
         <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a><span> |</span>
     }
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="AND-button">Back to List</a>
 </div>
