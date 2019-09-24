@@ -259,9 +259,9 @@ img.big-image-logo {
 
 .AND-btn-create {
     background: #bbbbbb !important;
-    font-size: 1.2em;
-    margin-left: 13em;
-    line-height: 3em;
+    font-size: 1em;
+    margin-left: 0em;
+    line-height: 1em;
 }
 
 a.AND-btn-create:hover {
@@ -271,6 +271,11 @@ a.AND-btn-create:hover {
 a.AND-button {
     background: #ff323b;
     color: #fff;
+}
+
+.details-btn-group a.AND-button {
+    width: 6.1em;
+    margin-top: 0.4em;
 }
 
 a.AND-button:hover {
@@ -294,6 +299,12 @@ a.AND-button:hover {
     border-top: 1px solid #fff;
 
     padding: 1em 1em;
+}
+/*Table boiii*/
+
+.table th, .table td {
+    vertical-align: unset;
+    max-width: 150px;
 }
 
 /* Edit Form */

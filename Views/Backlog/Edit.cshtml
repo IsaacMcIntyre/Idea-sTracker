@@ -23,7 +23,7 @@
                         @Model.Id
                     </div>
                 <p />
-            </div>>
+            </div>
             <div class="col-sm-4">
                 <p>
                     @Html.DisplayNameFor(model => model.CustomerProblem)
@@ -31,7 +31,7 @@
                         @Model.CustomerProblem
                     </div>
                 </p>
-            </div>>
+            </div>
             <div class="col-sm-4">
                 <p>
                     @Html.DisplayNameFor(model => model.ProblemDescription)
@@ -39,7 +39,7 @@
                         @Model.ProblemDescription
                     </div>
                 </p>
-            </div>>
+            </div>
             <div class="col-sm-4">
                 <p>
                     @Html.DisplayNameFor(model => model.Status)
@@ -47,7 +47,7 @@
                         @Model.Status
                     </div>
                 </p>
-            </div>>
+            </div>
         </div>
         <div class="col-sm-6">
             @*<div class="col-sm-4">
@@ -89,15 +89,15 @@
             </form>
             </div> 
         </div>
-    </div>>
+    </div>
 </div>
 <div>
     @if (User.Identity.IsAuthenticated && Model.RaisedBy == User.Identity.Name)
     {
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a><span> |</span>
-        <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a><span> |</span>
+        <a  class="btn AND-button" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-pencil-alt"></i> Edit</a>
+        <a  class="btn AND-button" asp-action="Delete" asp-route-id="@Model.Id"><i class="fas fa-trash-alt"></i> Delete</a>
     }
-    <a asp-action="Index" class="AND-button">Back to List</a>
+    <a asp-action="Index" class="btn AND-button"><i class="fas fa-trash-alt"></i> Back to List</a>
 </div>
 
 
