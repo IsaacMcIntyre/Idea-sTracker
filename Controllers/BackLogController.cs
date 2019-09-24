@@ -230,25 +230,26 @@ namespace IdeasTracker.Controllers
 
             var backLogItem = await _context.BackLogs
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (backLogItem == null)
+            if (backLogItem != null)
             {
-                return NotFound();
+                _context.Remove(backLogItem);
+                await _context.SaveChangesAsync();
             }
 
-            return View(backLogItem);
+            return Redirect("/BackLog");
         }
 
         // POST: BackLogItem/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var backLogItem = await _context.BackLogs.FindAsync(id);
-            _context.BackLogs.Remove(backLogItem);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //[Authorize]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var backLogItem = await _context.BackLogs.FindAsync(id);
+        //    _context.BackLogs.Remove(backLogItem);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool BackLogItemExists(int id)
         {

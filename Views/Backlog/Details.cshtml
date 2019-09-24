@@ -4,84 +4,91 @@
     ViewData["Title"] = "Details";
 }
 
-
-@section scripts{
-<script>$('#image').css('background-image', 'url(https://i.imgur.com/nSxM77r.jpg)');
-    $("#image-text").text("Build week project Details");</script>
-}
-
 <div class="product-info">
-    <div class="col-lg-12">
-        <h1>Details for <span>@Model.CustomerProblem</span></h1>
-    </div>
 
-    <div class="row">
+    <h1>Details for <span>@Model.CustomerProblem</span></h1>
+
+    <dl class="row">
         <div class="col-sm-6">
 
-           
-                <p>
+            <dt class="col-sm-4">
+                <p class="">
                     @Html.DisplayNameFor(model => model.Id)
                     <div class="text-display">
                         @Model.Id
                     </div>
-                </p>
-                
+                <p/>
+            </dt>
+            <dt class="col-sm-4">
                 <p>
                     @Html.DisplayNameFor(model => model.CustomerProblem)
                     <div class="text-display">
                         @Model.CustomerProblem
                     </div>
                 </p>
-           
+            </dt>
+            <dt class="col-sm-4">
                 <p>
                     @Html.DisplayNameFor(model => model.ProblemDescription)
                     <div class="text-display">
                         @Model.ProblemDescription
                     </div>
                 </p>
-                
+            </dt>
+            <dt class="col-sm-4">
                 <p>
                     @Html.DisplayNameFor(model => model.Status)
                     <div class="text-display">
                         @Model.Status
                     </div>
                 </p>
+            </dt>
 
         </div>
 
         <div class="col-sm-6">
+            <dt class="col-sm-4">
+                <p>
+                    @Html.DisplayNameFor(model => model.ProductOwner)
+                    <div class="text-display">
+                        @Model.ProductOwner
+                    </div>
+                </p>
+            </dt>
+            <dt class="col-sm-4">
+                <p>
+                    @Html.DisplayNameFor(model => model.BootcampAssigned)
+                    <div class="text-display">
+                        @Model.BootcampAssigned
+                    </div>
+                </p>
+            </dt>
+            <dt class="col-sm-4">
+                <p>
+                    @Html.DisplayNameFor(model => model.SolutionDescription)
+                    <div class="text-display">
+                        @Model.SolutionDescription
+                    </div>
+                </p>
+                
+            </dt>
 
-            <p>
-                @Html.DisplayNameFor(model => model.ProductOwner)
-                <div class="text-display">
-                    @Model.ProductOwner
-                </div>
-            </p>
-
-            <p>
-                @Html.DisplayNameFor(model => model.BootcampAssigned)
-                <div class="text-display">
-                    @Model.BootcampAssigned
-                </div>
-            </p>
-
-            <p>
-                @Html.DisplayNameFor(model => model.SolutionDescription)
-                <div class="text-display">
-                    @Model.SolutionDescription
-                </div>
-            </p>
-
-            <p>
-                @Html.DisplayNameFor(model => model.Links)
-                <div class="text-display">
-                    <a href="@Model.Links" class="links-link">@Model.Links</a>
-                </div>
-            </p>
+            <dt class="col-sm-4">
+                <p>
+                    @Html.DisplayNameFor(model => model.Links)
+                    <div class="text-display">
+                        <a href="@Model.Links" class="links-link">@Model.Links</a>
+                    </div>
+                </p>
+            </dt>
 
         </div>
 
-<div class="col-lg-12">
+    </dl>
+
+</div>
+
+<div>
     @if (User.Identity.IsAuthenticated && Model.RaisedBy == User.Identity.Name)
     {
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
@@ -90,7 +97,3 @@
     <a asp-action="Index" class="btn AND-button"><i class="fas fa-arrow-left"></i> Back to List</a>
 
 </div>
-
-</div><!--row-->
-</div>
-
