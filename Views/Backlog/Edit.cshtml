@@ -14,90 +14,70 @@
 <div class="product-info">
     <h1>Details for <span>@Model.CustomerProblem</span></h1>
 
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="col-sm-4">
-                <p class="">
-                    @Html.DisplayNameFor(model => model.Id)
-                    <div class="text-display">
-                        @Model.Id
-                    </div>
-                <p />
+    <form asp-action="EditIdea" value="@Model.Id">
+        <div class="row">
+            <div class="col-sm-6">
+
+                    <p>
+                        @Html.DisplayNameFor(model => model.Id)
+                        <div class="text-display">
+                            @Model.Id
+                        </div>
+                    </p>
+        
+                    <p>
+                        @Html.DisplayNameFor(model => model.CustomerProblem)
+                        <div class="text-display">
+                            @Model.CustomerProblem
+                        </div>
+                    </p>
+                    
+                    <p>
+                        @Html.DisplayNameFor(model => model.ProblemDescription)
+                        <div class="text-display">
+                            @Model.ProblemDescription
+                        </div>
+                    </p>
+
+                    <select asp-for="Status">
+                        <option value="Idea-Pending">Idea Pending</option>
+                        <option value="Idea-Accepted">Idea Accepted</option>
+                        <option value="In-Bootcamp">In Bootcamp</option>
+                        <option value="Project-Adoptable">Project Adoptable</option>
+                        <option value="Andoption-Request">Andoption Request</option>
+                        <option value="Adopted">Adopted</option>
+                    </select>
+
+
+            </div> <!-- col lg 6 -->
+            <div class="col-lg-6">
+
+                <div id="editForm">
+                            <div class="EditIdeaFormTitle"><p>Owner</p></div>
+                            <input asp-for="ProductOwner" type="text" class="product-owner" />
+                            <div class="EditIdeaFormTitle"><p>Bootcamp Assigned</p></div>
+                            <input asp-for="BootcampAssigned" type="text" class="bootcamp-assigned" />
+                            <div class="EditIdeaFormTitle"><p>Solution Description</p></div>
+                            <input asp-for="SolutionDescription" type="text" class="solution-description" />
+                            @*Html.DisplayNameFor(model => model.Id)*@
+                            <input asp-for="Id" type="hidden" class="id" />
+                            <input type="submit" value="Submit" class="btn btn-light">
+                </div> 
+
             </div>
-            <div class="col-sm-4">
-                <p>
-                    @Html.DisplayNameFor(model => model.CustomerProblem)
-                    <div class="text-display">
-                        @Model.CustomerProblem
-                    </div>
-                </p>
-            </div>
-            <div class="col-sm-4">
-                <p>
-                    @Html.DisplayNameFor(model => model.ProblemDescription)
-                    <div class="text-display">
-                        @Model.ProblemDescription
-                    </div>
-                </p>
-            </div>
-            <div class="col-sm-4">
-                <p>
-                    @Html.DisplayNameFor(model => model.Status)
-                    <div class="text-display">
-                        @Model.Status
-                    </div>
-                </p>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            @*<div class="col-sm-4">
-            <p>
-                @Html.DisplayNameFor(model => model.ProductOwner)
-                <div class="text-display">
-                    @Model.ProductOwner
-                </div>
-            </p>
-        </div>>
-        <div class="col-sm-4">
-            <p>
-                @Html.DisplayNameFor(model => model.BootcampAssigned)
-                <div class="text-display">
-                    @Model.BootcampAssigned
-                </div>
-            </p>
-        </div>>
-        <div class="col-sm-4">
-            <p>
-                @Html.DisplayNameFor(model => model.SolutionDescription)
-                <div class="text-display">
-                    @Model.SolutionDescription
-                </div>
-            </p>
-        </div>>*@
-            <div id="editForm">
-            <form asp-action="EditIdea" value="@Model.Id">
-                <div class="EditIdeaFormTitle">
-                <p>Owner</p></div>
-                <input asp-for="ProductOwner" type="text" class="product-owner" />
-                <div class="EditIdeaFormTitle"><p>Bootcamp Assigned</p></div>
-                <input asp-for="BootcampAssigned" type="text" class="bootcamp-assigned" />
-                <div class="EditIdeaFormTitle"><p>Solution Description</p></div>
-                <input asp-for="SolutionDescription" type="text" class="solution-description" />
-                @*Html.DisplayNameFor(model => model.Id)*@
-                <input asp-for="Id" type="hidden" class="id" />
-                <input type="submit" value="Submit" class="btn btn-light">
-            </form>
-            </div> 
-        </div>
-    </div>
-</div>
-<div>
+        </form>
+        <div class="col-lg-12">
+    
     @if (User.Identity.IsAuthenticated && Model.RaisedBy == User.Identity.Name)
     {
         <a  class="btn AND-button" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-pencil-alt"></i> Edit</a>
         <a  class="btn AND-button" asp-action="Delete" asp-route-id="@Model.Id"><i class="fas fa-trash-alt"></i> Delete</a>
+        @if (Model.Status == "Project Adoptable"){
+            <a  class="btn AND-button" asp-action="Adopt" asp-route-id="@Model.Id"><i class="far fa-handshake"></i> Adopt</a>
+        }
     }
-    <a asp-action="Index" class="btn AND-button"><i class="fas fa-trash-alt"></i> Back to List</a>
+    <a asp-action="Index" class="btn AND-button"><i class="fas fa-arrow-left"></i> Back to List</a>
 </div>
-
+    </div>
+</div>
 
