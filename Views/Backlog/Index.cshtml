@@ -97,13 +97,10 @@
               @Html.DisplayFor(modelItem => item.AdoptedBy)
           </td>
         <td>
-          <a asp-action="Details" asp-route-id="@item.Id" class="AND-button">Details</a>
-          @if (User.Identity.IsAuthenticated && item.RaisedBy == User.Identity.Name)
-          {
+            <a asp-action="Details" asp-route-id="@item.Id" class="AND-button">Details</a>
             <span> |</span>
             <a asp-action="Edit" asp-route-id="@item.Id" class="AND-button">Edit</a><span> |</span>
             <!--<a asp-action="Delete" asp-route-id="@item.Id">Delete</a> -->
-          }
         </td>
       </tr>
       }
