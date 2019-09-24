@@ -74,7 +74,7 @@
     @if (User.Identity.IsAuthenticated && Model.RaisedBy == User.Identity.Name)
     {
         <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a><span> |</span>
-        <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a><span> |</span>
+        <a asp-action="Adopt" asp-route-id="@Model.Id">Adopt</a><span> |</span>
     }
     <a asp-action="Index" class="AND-button">Back to List</a>
 </div>
