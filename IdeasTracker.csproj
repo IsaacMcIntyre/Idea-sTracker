@@ -22,7 +22,15 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <Folder Include="Views\Account\" />
+=======
+    <Compile Remove="Models\CreateIdeaModel.cs" />
+>>>>>>> 4b9e806d0e2019d9d8beffbc3356fc8d5bd91fbc
+=======
     <Folder Include="Views\Account\" />
     <Compile Remove="Models\CreateIdeaModel.cs" />
+>>>>>>> e07b2805b2c233de799219a5f16aeea92dacdaa9
   </ItemGroup>
 </Project>
