@@ -51,26 +51,33 @@
 
         <div class="col-sm-6">
 
-                <p>
-                    @Html.DisplayNameFor(model => model.ProductOwner)
-                    <div class="text-display">
-                        @Model.ProductOwner
-                    </div>
-                </p>
+            <p>
+                @Html.DisplayNameFor(model => model.ProductOwner)
+                <div class="text-display">
+                    @Model.ProductOwner
+                </div>
+            </p>
 
-                <p>
-                    @Html.DisplayNameFor(model => model.BootcampAssigned)
-                    <div class="text-display">
-                        @Model.BootcampAssigned
-                    </div>
-                </p>
+            <p>
+                @Html.DisplayNameFor(model => model.BootcampAssigned)
+                <div class="text-display">
+                    @Model.BootcampAssigned
+                </div>
+            </p>
 
-                <p>
-                    @Html.DisplayNameFor(model => model.SolutionDescription)
-                    <div class="text-display">
-                        @Model.SolutionDescription
-                    </div>
-                </p>
+            <p>
+                @Html.DisplayNameFor(model => model.SolutionDescription)
+                <div class="text-display">
+                    @Model.SolutionDescription
+                </div>
+            </p>
+
+            <p>
+                @Html.DisplayNameFor(model => model.Links)
+                <div class="text-display">
+                    <a href="@Model.Links" class="links-link">@Model.Links</a>
+                </div>
+            </p>
 
         </div>
 

@@ -82,7 +82,7 @@ namespace IdeasTracker.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> EditIdea([Bind("Id,ProductOwner,BootcampAssigned,SolutionDescription, Status")] BackLog backLog)
+        public async Task<IActionResult> EditIdea([Bind("Id,ProductOwner,BootcampAssigned,SolutionDescription, Status, Links")] BackLog backLog)
         {
             var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == backLog.Id);
 
@@ -97,6 +97,7 @@ namespace IdeasTracker.Controllers
                 backlogItem.Status = backLog.Status;
                 backlogItem.BootcampAssigned = backLog.BootcampAssigned;
                 backlogItem.SolutionDescription = backLog.SolutionDescription;
+                backlogItem.Links = backLog.Links;
             }
 
             if (ModelState.IsValid)

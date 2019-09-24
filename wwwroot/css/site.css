@@ -364,3 +364,6 @@ a.AND-button:hover {
     color: #ffffff;
 }
 
+.links-link {
+    max-width: 300px;
+}
