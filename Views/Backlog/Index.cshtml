@@ -99,8 +99,8 @@
                 <td>
                 <div class="details-btn-group">
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-light"><i class="fas fa-info-circle"></i> Details</a>
-                    @if (User.Identity.IsAuthenticated && item.RaisedBy == User.Identity.Name){
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
+                    @if (item.Status == "Bootcamp Complete"){
                         <a asp-action="Adopt" asp-route-id="@item.Id" class="btn AND-button"><i class="far fa-handshake"></i> Adopt</a>
                     }
                 </div>
