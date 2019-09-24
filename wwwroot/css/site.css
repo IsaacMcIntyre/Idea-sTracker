@@ -284,3 +284,31 @@ a.AND-button:hover {
     border-top: 1px solid #fff;
     padding: 1em 1em;
 }
+
+/* Edit Form */
+
+#editForm input[type="text"] {
+    background: #f2f2f2;
+    padding: 1em 1em;
+    border: 1px solid #f3f3f3;
+    width: 32em;
+}
+
+.EditIdeaFormTitle p {
+    font-size: 12px;
+    margin-bottom: 0px;
+    color: darkgray !important;
+    padding: 0em 0em 0em 0em;
+    margin-top: 1em;
+    font-weight: 700;
+}
+
+#editForm #id {
+    display: none;
+}
+
+#editForm input.btn.btn-light {
+    margin-top: 2em;
+    width: 32em;
+    padding: 1em;
+}
