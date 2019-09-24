@@ -12,11 +12,16 @@
       <PrivateAssets>all</PrivateAssets>
       <Publish>true</Publish>
     </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SQLite" Version="2.2.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Okta.AspNet.Abstractions" Version="3.0.1" />
     <PackageReference Include="Okta.AspNetCore" Version="1.1.5" />
+    <PackageReference Include="okta.sdk" Version="1.4.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Account\" />
+  </ItemGroup>
 </Project>

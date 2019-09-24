@@ -22,8 +22,11 @@ namespace IdeasTracker.Controllers
             return RedirectToAction("Index", "Home");
             
         }
-
-    public IActionResult PostLogout()
+        public ActionResult AccessDenied()
+        {
+            return View();
+        }
+        public IActionResult PostLogout()
     {
       return RedirectToAction("Index", "Home");
     }
