@@ -164,11 +164,7 @@ img.big-image-logo {
     background: #f2f2f2;
     padding: 1em 1em;
     border: 1px solid #f3f3f3;
-    width: 100%;
-}
-
-h1.details-header {
-    margin-top: 0.25em;
+    width: 32em;
 }
 
 .product-info p {
@@ -248,19 +244,14 @@ select#status {
         color: #fff;
         text-align: center;
     }
-    .col-lg-4.second-child {
-        margin-left: 0em;
+    .col-sm-4.second-child {
+        margin-left: -5em;
     }
-    .col-lg-4.final-child {
-        margin-left: -6.5em;
+    .col-sm-4.final-child {
+        margin-left: -3.5em;
     }
 }
 
-@media (max-width: 1000px) {
-    .top-table-imgs {
-        display: none;
-    }
-}
 
 
 /* Media Queries for Navbar */
@@ -272,6 +263,9 @@ select#status {
     }
     ul.navbar-nav.login-nav {
         margin: 2em 1em 1em 0em;
+    }
+    .top-table-imgs {
+        display: none;
     }
 }
 
@@ -308,6 +302,7 @@ a.AND-button:hover {
 .table thead th {
     background: #f3f3f3;
     font-size: 0.8em;
+
 }
 
 .table th, .table td {
@@ -318,8 +313,8 @@ a.AND-button:hover {
     vertical-align: bottom;
     border-bottom: 1px solid #fff;
     border-top: 1px solid #fff;
+
     padding: 1em 1em;
-    line-height: 2em;
 }
 /*Table boiii*/
 
@@ -378,3 +373,6 @@ a.AND-button:hover {
     color: #ff05df;
 }
 
+.links-link {
+    max-width: 300px;
+}
