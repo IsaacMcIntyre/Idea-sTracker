@@ -48,6 +48,8 @@ namespace IdeasTracker.Controllers
             return View(backLogItem);
         }
 
+
+
         // GET: BackLogItem/Create
         [Authorize]
         public IActionResult Create()
@@ -59,10 +61,30 @@ namespace IdeasTracker.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
+        //[ValidateAntiForgeryToken]
+        //[Authorize]
         public async Task<IActionResult> Create([Bind("CustomerProblem,ProblemDescription")] BackLog backLog)
         {
+            backLog.RaisedBy = User.Identity.Name;
+            backLog.Status = "Pending";
+
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(backLog);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(backLog);
+        }
+
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Authorize]
+        public async Task<IActionResult> EditIdea([Bind("Id,ProductOwner,BootcampAssigned,SolutionDescription")] BackLog backLog)
+        {
+            var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == backLog.Id);
             backLog.RaisedBy = User.Identity.Name;
             backLog.Status = "Pending";
 

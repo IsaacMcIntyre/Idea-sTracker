@@ -9,8 +9,6 @@
 <script>$('#image').css('background-image', 'url(https://i.imgur.com/YA5OtMi.png)');
     $("#image-text").text("Edit Project");</script>
 }
-
-<!--
 <h1>Edit</h1>
 
 <div class="product-info">
@@ -52,30 +50,44 @@
             </dt>
         </div>
         <div class="col-sm-6">
-            <dt class="col-sm-4">
-                <p>
-                    @Html.DisplayNameFor(model => model.ProductOwner)
-                    <div class="text-display">
-                        @Model.ProductOwner
-                    </div>
-                </p>
-            </dt>
-            <dt class="col-sm-4">
-                <p>
-                    @Html.DisplayNameFor(model => model.BootcampAssigned)
-                    <div class="text-display">
-                        @Model.BootcampAssigned
-                    </div>
-                </p>
-            </dt>
-            <dt class="col-sm-4">
-                <p>
-                    @Html.DisplayNameFor(model => model.SolutionDescription)
-                    <div class="text-display">
-                        @Model.SolutionDescription
-                    </div>
-                </p>
-            </dt>
+            @*<dt class="col-sm-4">
+            <p>
+                @Html.DisplayNameFor(model => model.ProductOwner)
+                <div class="text-display">
+                    @Model.ProductOwner
+                </div>
+            </p>
+        </dt>
+        <dt class="col-sm-4">
+            <p>
+                @Html.DisplayNameFor(model => model.BootcampAssigned)
+                <div class="text-display">
+                    @Model.BootcampAssigned
+                </div>
+            </p>
+        </dt>
+        <dt class="col-sm-4">
+            <p>
+                @Html.DisplayNameFor(model => model.SolutionDescription)
+                <div class="text-display">
+                    @Model.SolutionDescription
+                </div>
+            </p>
+        </dt>*@
+            <div id="editForm">
+            <form asp-action="EditIdea" value="@Model.Id">
+                <div class="EditIdeaFormTitle">
+                <p>Owner</p></div>
+                <input asp-for="ProductOwner" type="text" class="product-owner" />
+                <div class="EditIdeaFormTitle"><p>Bootcamp Assigned</p></div>
+                <input asp-for="BootcampAssigned" type="text" class="bootcamp-assigned" />
+                <div class="EditIdeaFormTitle"><p>Solution Description</p></div>
+                <input asp-for="SolutionDescription" type="text" class="solution-description" />
+                @*Html.DisplayNameFor(model => model.Id)*@
+                <input asp-for="Id" type="hidden" class="id" />
+                <input type="submit" value="Submit" class="btn btn-light">
+            </form>
+            </div> 
         </div>
     </dl>
 </div>
