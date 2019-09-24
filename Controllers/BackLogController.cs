@@ -23,7 +23,7 @@ namespace IdeasTracker.Controllers
             _backlogToBackLogModelConverter = backlogToBackLogModelConverter;
         }
 
-        [Authorize(Roles = Roles.ClubTenzing)] 
+        [Authorize] 
         public async Task<IActionResult> Index()
         {
 
