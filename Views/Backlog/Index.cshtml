@@ -68,7 +68,7 @@
             @Html.DisplayNameFor(model => model.AdoptedBy)
         </th>
         <th>
-                <a class="AND-button" asp-action="Create"><i class="fas fa-comment-medical"></i> Create New</a>
+                <a class="btn AND-btn-create" asp-action="Create"><i class="fas fa-comment-medical"></i> Create New</a>
         </th>
       </tr>
     </thead>
@@ -100,10 +100,8 @@
           <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-light"><i class="fas fa-info-circle"></i> Details</a>
           @if (User.Identity.IsAuthenticated && item.RaisedBy == User.Identity.Name)
           {
-            <span> |</span>
-            <a asp-action="Edit" asp-route-id="@item.Id" class="AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
-            <span> |</span>
-            <a asp-action="Adopt" asp-route-id="@item.Id" class="AND-button">Adopt</a>
+            <a asp-action="Edit" asp-route-id="@item.Id" class="btn AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
+            <a asp-action="Adopt" asp-route-id="@item.Id" class="btn AND-button"><i class="far fa-handshake"></i> Adopt</a>
 
           }
         </td>
