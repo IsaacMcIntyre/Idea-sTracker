@@ -5,8 +5,8 @@
 }
 
 @section scripts{
-<script>$('#image').css('background-image', 'url(https://i.imgur.com/5oNDsrm.png)');
-    $("#image-text").text("Let\'s see what our ANDis have been up to!");</script>
+    <script>$('#image').css('background-image', 'url(https://i.imgur.com/Msz7n6a.png)');
+        $("#image-text").text("Let\'s see what our ANDis have been up to!");</script>
 }
 
 <div class="row top-table-imgs">
@@ -33,7 +33,7 @@
     <div class="col-sm-4 final-child">
 
         <div class="col-lg-6 FLeft">
-            <img class="img-responsive" src="https://static.andigital.com/wp-content/uploads/2017/08/08160428/joshua-hibbert-22841-copy.png" />
+            <img class="img-responsive" src="https://i.imgur.com/5oNDsrm.png" />
         </div>
         <div class="col-lg-6 Fleft">
             <p>Where next</p>
@@ -42,74 +42,71 @@
     </div>
 </div>
 <div class="table-responsive">
-   <table class="table">
-    
-    <thead>
-      <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RaisedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerProblem)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BootcampAssigned)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductOwner)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdoptedBy)
-        </th>
-        <th>
+    <table class="table">
 
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach (var item in Model) {  
-      <tr>
-          <td>
-              @Html.DisplayFor(modelItem => item.Id)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.RaisedBy)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.CustomerProblem)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.Status)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.BootcampAssigned)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.ProductOwner)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.AdoptedBy)
-          </td>
-        <td>
-          <a asp-action="Details" asp-route-id="@item.Id" class="AND-button">Details</a>
-          @if (User.Identity.IsAuthenticated && item.RaisedBy == User.Identity.Name)
-          {
-            <span> |</span>
-            <a asp-action="Edit" asp-route-id="@item.Id" class="AND-button">Edit</a><span> |</span>
-            <!--<a asp-action="Delete" asp-route-id="@item.Id">Delete</a> -->
-          }
-        </td>
-      </tr>
-      }
-    </tbody>
-</table>
-   <p>
-       <a class="AND-button" asp-action="Create"><i class="fas fa-comment-medical"></i> Create New</a>
-   </p>
-    </div>
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RaisedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustomerProblem)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BootcampAssigned)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductOwner)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AdoptedBy)
+                </th>
+                <th>
+                    <a class="btn AND-btn-create" asp-action="Create"><i class="fas fa-comment-medical"></i> Create New</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RaisedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerProblem)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BootcampAssigned)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductOwner)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdoptedBy)
+                </td>
+                <td>
+                <div class="details-btn-group">
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-light"><i class="fas fa-info-circle"></i> Details</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
+                    @if (item.Status == "Bootcamp Complete"){
+                        <a asp-action="Adopt" asp-route-id="@item.Id" class="btn AND-button"><i class="far fa-handshake"></i> Adopt</a>
+                    }
+                </div>
+                </td>
+            </tr>
+                }
+</tbody>
+    </table>
+</div>

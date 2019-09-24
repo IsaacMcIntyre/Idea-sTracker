@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.Authentication;
 using IdeasTracker.Attributes;
 using IdeasTracker.Business.Uows.Interfaces;
 using IdeasTracker.Business.Uow;
+using IdeasTracker.Converters; 
 
 namespace IdeasTracker
 {
@@ -77,6 +78,7 @@ namespace IdeasTracker
             services.AddTransient<IRoleUow, RolesUow>();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=IdeasTracker.db"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddTransient<IBacklogToBackLogModelConverter, BacklogToBackLogModelConverter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

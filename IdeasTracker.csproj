@@ -27,5 +27,6 @@
     <Folder Include="Attributes\" />
     <Folder Include="IdeasTracker.Entities\" />
     <Folder Include="Views\Role\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
 </Project>
