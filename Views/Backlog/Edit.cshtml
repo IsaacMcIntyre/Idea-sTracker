@@ -44,40 +44,43 @@
         </div>
         <div class="col-sm-6">
             @*<dt class="col-sm-4">
-                <p>
-                    @Html.DisplayNameFor(model => model.ProductOwner)
-                    <div class="text-display">
-                        @Model.ProductOwner
-                    </div>
-                </p>
-            </dt>
-            <dt class="col-sm-4">
-                <p>
-                    @Html.DisplayNameFor(model => model.BootcampAssigned)
-                    <div class="text-display">
-                        @Model.BootcampAssigned
-                    </div>
-                </p>
-            </dt>
-            <dt class="col-sm-4">
-                <p>
-                    @Html.DisplayNameFor(model => model.SolutionDescription)
-                    <div class="text-display">
-                        @Model.SolutionDescription
-                    </div>
-                </p>
-            </dt>*@
+            <p>
+                @Html.DisplayNameFor(model => model.ProductOwner)
+                <div class="text-display">
+                    @Model.ProductOwner
+                </div>
+            </p>
+        </dt>
+        <dt class="col-sm-4">
+            <p>
+                @Html.DisplayNameFor(model => model.BootcampAssigned)
+                <div class="text-display">
+                    @Model.BootcampAssigned
+                </div>
+            </p>
+        </dt>
+        <dt class="col-sm-4">
+            <p>
+                @Html.DisplayNameFor(model => model.SolutionDescription)
+                <div class="text-display">
+                    @Model.SolutionDescription
+                </div>
+            </p>
+        </dt>*@
+            <div id="editForm">
             <form asp-action="EditIdea" value="@Model.Id">
-                Product Owner
+                <div class="EditIdeaFormTitle">
+                <p>Owner</p></div>
                 <input asp-for="ProductOwner" type="text" class="product-owner" />
-                Bootcamp Assigned
+                <div class="EditIdeaFormTitle"><p>Bootcamp Assigned</p></div>
                 <input asp-for="BootcampAssigned" type="text" class="bootcamp-assigned" />
-                Solution Description
+                <div class="EditIdeaFormTitle"><p>Solution Description</p></div>
                 <input asp-for="SolutionDescription" type="text" class="solution-description" />
-                @Html.DisplayNameFor(model => model.Id)
+                @*Html.DisplayNameFor(model => model.Id)*@
                 <input asp-for="Id" type="hidden" class="id" />
-                <input type="submit" value="k00l K1dz">
+                <input type="submit" value="Submit" class="btn btn-light">
             </form>
+            </div> <!-- #editForm -->
         </div>
     </dl>
 </div>
