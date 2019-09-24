@@ -20,10 +20,9 @@
     <PackageReference Include="Okta.AspNetCore" Version="1.1.5" />
     <PackageReference Include="okta.sdk" Version="1.4.1" />
   </ItemGroup>
-
+ 
   <ItemGroup> 
-    <Folder Include="Views\Account\" /> 
-    <Folder Include="Views\Account\" />
-    <Compile Remove="Models\CreateIdeaModel.cs" /> 
+    <Folder Include="Views\Account\" />  
+    <Compile Remove="Models\CreateIdeaModel.cs" />  
   </ItemGroup>
 </Project>
