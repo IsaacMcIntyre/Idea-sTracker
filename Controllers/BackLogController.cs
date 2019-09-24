@@ -86,19 +86,17 @@ namespace IdeasTracker.Controllers
         {
             var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == backLog.Id);
 
-            if (!string.IsNullOrWhiteSpace(backLog.ProductOwner))
+            if (backLog.Status.Equals("Idea-Pending") && !string.IsNullOrWhiteSpace(backLog.ProductOwner))
             {
                 backlogItem.Status = "Adopted";
                 backlogItem.ProductOwner = backLog.ProductOwner;
             }
-
-
-            if(backlogItem.Status.Equals("Project Adoptable", StringComparison.InvariantCultureIgnoreCase))
+            else
             {
-                if (string.IsNullOrWhiteSpace(backlogItem.SolutionDescription))
-                {
-                    return NotFound();
-                }
+                backlogItem.ProductOwner = backLog.ProductOwner;
+                backlogItem.Status = backLog.Status;
+                backlogItem.BootcampAssigned = backLog.BootcampAssigned;
+                backlogItem.SolutionDescription = backLog.SolutionDescription;
             }
 
             if (ModelState.IsValid)
