@@ -4,6 +4,11 @@
     ViewData["Title"] = "Details";
 }
 
+@section scripts{
+<script>$('#image').css('background-image', 'url(https://i.imgur.com/UkT4jDo.jpg)');
+    $("#image-text").text("Project Details");</script>
+}
+
 <div class="product-info">
     <h1>Details for <span>@Model.CustomerProblem</span></h1>
 
@@ -15,7 +20,7 @@
                     <div class="text-display">
                         @Model.Id
                     </div>
-                <p/>
+                <p />
             </dt>
             <dt class="col-sm-4">
                 <p>
@@ -70,11 +75,12 @@
         </div>
     </dl>
 </div>
-<div>
+<div class="buttons">
     @if (User.Identity.IsAuthenticated && Model.RaisedBy == User.Identity.Name)
     {
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a><span> |</span>
-        <a asp-action="Adopt" asp-route-id="@Model.Id">Adopt</a><span> |</span>
+
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
+        <a asp-action="Adopt" asp-route-id="@Model.Id" class="AND-button"><i class="fas fa-trash-alt"></i> Delete</a>
     }
-    <a asp-action="Index" class="AND-button">Back to List</a>
+    <a asp-action="Index" class="AND-button"><i class="fas fa-arrow-left"></i> Back to List</a>
 </div>
