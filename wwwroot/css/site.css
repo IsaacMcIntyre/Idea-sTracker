@@ -231,10 +231,10 @@ img.big-image-logo {
         text-align: center;
     }
     .col-sm-4.second-child {
-        margin-left: 0em;
+        margin-left: -5em;
     }
     .col-sm-4.final-child {
-        margin-left: -6.5em;
+        margin-left: -3.5em;
     }
 }
 
@@ -257,15 +257,25 @@ img.big-image-logo {
 
 /* AND Button */
 
+.AND-btn-create {
+    background: #bbbbbb !important;
+    font-size: 1.2em;
+    margin-left: 13em;
+    line-height: 3em;
+}
+
+a.AND-btn-create:hover {
+        background: #989898 !important;
+}
+
 a.AND-button {
-    padding: 0.5em;
     background: #ff323b;
-    border-radius: 0.75em;
     color: #fff;
 }
 
 a.AND-button:hover {
     background: #d00f18;
+    color: #fff;
     text-decoration: none;
 }
 
@@ -282,6 +292,7 @@ a.AND-button:hover {
     vertical-align: bottom;
     border-bottom: 1px solid #fff;
     border-top: 1px solid #fff;
+
     padding: 1em 1em;
 }
 
