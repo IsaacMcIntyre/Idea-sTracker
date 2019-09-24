@@ -5,8 +5,8 @@
 }
 
 @section scripts{
-<script>$('#image').css('background-image', 'url(https://i.imgur.com/Msz7n6a.png)');
-    $("#image-text").text("Let\'s see what our ANDis have been up to!");</script>
+    <script>$('#image').css('background-image', 'url(https://i.imgur.com/Msz7n6a.png)');
+        $("#image-text").text("Let\'s see what our ANDis have been up to!");</script>
 }
 
 <div class="row top-table-imgs">
@@ -42,73 +42,71 @@
     </div>
 </div>
 <div class="table-responsive">
-   <table class="table">
-    
-    <thead>
-      <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RaisedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerProblem)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BootcampAssigned)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductOwner)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdoptedBy)
-        </th>
-        <th>
-                <a class="btn AND-btn-create" asp-action="Create"><i class="fas fa-comment-medical"></i> Create New</a>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach (var item in Model) {  
-      <tr>
-          <td>
-              @Html.DisplayFor(modelItem => item.Id)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.RaisedBy)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.CustomerProblem)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.Status)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.BootcampAssigned)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.ProductOwner)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.AdoptedBy)
-          </td>
-        <td>
+    <table class="table">
 
-          <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-light"><i class="fas fa-info-circle"></i> Details</a>
-          @if (User.Identity.IsAuthenticated && item.RaisedBy == User.Identity.Name)
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RaisedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustomerProblem)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BootcampAssigned)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductOwner)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AdoptedBy)
+                </th>
+                <th>
+                    <a class="btn AND-btn-create" asp-action="Create"><i class="fas fa-comment-medical"></i> Create New</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RaisedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerProblem)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BootcampAssigned)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductOwner)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdoptedBy)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-light"><i class="fas fa-info-circle"></i> Details</a>
+                    @if (User.Identity.IsAuthenticated && item.RaisedBy == User.Identity.Name)
           {
-            <a asp-action="Edit" asp-route-id="@item.Id" class="btn AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
-            <a asp-action="Adopt" asp-route-id="@item.Id" class="btn AND-button"><i class="far fa-handshake"></i> Adopt</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
+                    <a asp-action="Adopt" asp-route-id="@item.Id" class="btn AND-button"><i class="far fa-handshake"></i> Adopt</a>
 
-
-          
-        </td>
-      </tr>
+          }
+                </td>
+            </tr>
       }
-    </tbody>
-</table>
-    </div>
+        </tbody>
+    </table>
+</div>

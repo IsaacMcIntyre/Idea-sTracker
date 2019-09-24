@@ -7,66 +7,66 @@
 <div class="product-info">
     <h1>Details for <span>@Model.CustomerProblem</span></h1>
 
-    <dl class="row">
+    <div class="row">
         <div class="col-sm-4">
-            <dt class="col-sm-4">
+            <div class="col-sm-4">
                 <p class="">
                     @Html.DisplayNameFor(model => model.Id)
                     <div class="text-display">
                         @Model.Id
                     </div>
                 <p />
-            </dt>
-            <dt class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
                 <p>
                     @Html.DisplayNameFor(model => model.CustomerProblem)
                     <div class="text-display">
                         @Model.CustomerProblem
                     </div>
                 </p>
-            </dt>
-            <dt class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
                 <p>
                     @Html.DisplayNameFor(model => model.ProblemDescription)
                     <div class="text-display">
                         @Model.ProblemDescription
                     </div>
                 </p>
-            </dt>
-            <dt class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
                 <p>
                     @Html.DisplayNameFor(model => model.Status)
                     <div class="text-display">
                         @Model.Status
                     </div>
                 </p>
-            </dt>
+            </div>
         </div>
         <div class="col-sm-4">
-            <dt class="col-sm-4">
+            <div class="col-sm-4">
                 <p>
                     @Html.DisplayNameFor(model => model.ProductOwner)
                     <div class="text-display">
                         @Model.ProductOwner
                     </div>
                 </p>
-            </dt>
-            <dt class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
                 <p>
                     @Html.DisplayNameFor(model => model.BootcampAssigned)
                     <div class="text-display">
                         @Model.BootcampAssigned
                     </div>
                 </p>
-            </dt>
-            <dt class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
                 <p>
                     @Html.DisplayNameFor(model => model.SolutionDescription)
                     <div class="text-display">
                         @Model.SolutionDescription
                     </div>
                 </p>
-            </dt>
+            </div>
         </div>
         <div class="col-sm-4">
             <form asp-action="Adopt">
@@ -91,11 +91,10 @@
                 </div>
             </form>
         </div>
-    </dl>
+    </div>
 </div>
 
 <form asp-action="Delete">
     <input type="hidden" asp-for="Id" />
     <a asp-action="Index">Back to List</a>
 </form>
-</div>
