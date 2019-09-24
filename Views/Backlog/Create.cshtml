@@ -6,7 +6,10 @@
 
 @section scripts{
 <script>$('#image').css('background-image', 'url(https://i.imgur.com/APzkiMi.jpg)');
-    $("#image-text").text("Submit your awesome idea!");</script>
+    $("#image-text").text("Submit your awesome idea!");
+    $(window).scroll(function () {
+        $(".hero-image").children().css("opacity", 1 - $(window).scrollTop() / 250);
+    });</script>
 }
 
 <div id="create" class="row">

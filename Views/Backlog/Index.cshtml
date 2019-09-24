@@ -5,8 +5,11 @@
 }
 
 @section scripts{
-    <script>$('#image').css('background-image', 'url(https://i.imgur.com/Msz7n6a.png)');
-        $("#image-text").text("Let\'s see what our ANDis have been up to!");</script>
+<script>$('#image').css('background-image', 'url(https://i.imgur.com/Msz7n6a.png)');
+    $("#image-text").text("Let\'s see what our ANDis have been up to!");
+    $(window).scroll(function () {
+        $(".hero-image").children().css("opacity", 1 - $(window).scrollTop() / 250);
+    });</script>
 }
 
 
@@ -86,7 +89,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.CustomerProblem)
                 </td>
-                <td class="@Html.DisplayNameFor(model => model.Status)">
+                <td class="@Html.DisplayFor(modelItem => item.Status)">
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>

@@ -6,7 +6,10 @@
 
 @section scripts{
 <script>$('#image').css('background-image', 'url(https://i.imgur.com/9jlbVYa.png)');
-    $("#image-text").text("Lets celebrate and adopt some ANDis projects!");</script>
+    $("#image-text").text("Lets celebrate and adopt some ANDis projects!");
+    $(window).scroll(function () {
+        $(".hero-image").children().css("opacity", 1 - $(window).scrollTop() / 250);
+    });</script>
 }
 
 <div class="row">
