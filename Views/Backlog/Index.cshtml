@@ -5,7 +5,7 @@
 }
 
 @section scripts{
-<script>$('#image').css('background-image', 'url(https://i.imgur.com/5oNDsrm.png)');
+<script>$('#image').css('background-image', 'url(https://i.imgur.com/Msz7n6a.png)');
     $("#image-text").text("Let\'s see what our ANDis have been up to!");</script>
 }
 
@@ -33,7 +33,7 @@
     <div class="col-sm-4 final-child">
 
         <div class="col-lg-6 FLeft">
-            <img class="img-responsive" src="https://static.andigital.com/wp-content/uploads/2017/08/08160428/joshua-hibbert-22841-copy.png" />
+            <img class="img-responsive" src="https://i.imgur.com/5oNDsrm.png" />
         </div>
         <div class="col-lg-6 Fleft">
             <p>Where next</p>
@@ -68,7 +68,7 @@
             @Html.DisplayNameFor(model => model.AdoptedBy)
         </th>
         <th>
-
+                <a class="AND-button" asp-action="Create"><i class="fas fa-comment-medical"></i> Create New</a>
         </th>
       </tr>
     </thead>
@@ -97,16 +97,18 @@
               @Html.DisplayFor(modelItem => item.AdoptedBy)
           </td>
         <td>
-            <a asp-action="Details" asp-route-id="@item.Id" class="AND-button">Details</a>
-            <span> |</span>
-            <a asp-action="Edit" asp-route-id="@item.Id" class="AND-button">Edit</a><span> |</span>
-            <!--<a asp-action="Delete" asp-route-id="@item.Id">Delete</a> -->
+
+          <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-light"><i class="fas fa-info-circle"></i> Details</a>
+        
+          <span> |</span>
+          <a asp-action="Edit" asp-route-id="@item.Id" class="AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
+          <span> |</span>
+          <a asp-action="Adopt" asp-route-id="@item.Id" class="AND-button">Adopt</a>
+
+          
         </td>
       </tr>
       }
     </tbody>
 </table>
-   <p>
-       <a class="AND-button" asp-action="Create"><i class="fas fa-comment-medical"></i> Create New</a>
-   </p>
     </div>

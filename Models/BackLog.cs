@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-
 namespace IdeasTracker.Models
 {
     public class BackLog
