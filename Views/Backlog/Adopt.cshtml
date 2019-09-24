@@ -1,14 +1,14 @@
-@model IdeasTracker.Models.BackLog
+@model IdeasTracker.Models.BacklogModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Adopt";
 }
 
 <div class="product-info">
     <h1>Details for <span>@Model.CustomerProblem</span></h1>
 
     <dl class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <dt class="col-sm-4">
                 <p class="">
                     @Html.DisplayNameFor(model => model.Id)
@@ -42,7 +42,7 @@
                 </p>
             </dt>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <dt class="col-sm-4">
                 <p>
                     @Html.DisplayNameFor(model => model.ProductOwner)
@@ -68,15 +68,34 @@
                 </p>
             </dt>
         </div>
+        <div class="col-sm-4">
+            <form asp-action="Adopt">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="AdoptedBy" class="control-label"></label>
+                    <input asp-for="AdoptedBy" class="form-control" />
+                    <span asp-validation-for="AdoptedBy" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AdoptionValue" class="control-label"></label>
+                    <textarea asp-for="AdoptionValue" class="form-control" rows="5" cols="50"></textarea>
+                    <span asp-validation-for="AdoptionValue" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AdoptionReason" class="control-label"></label>
+                    <textarea asp-for="AdoptionReason" class="form-control" rows="5" cols="50"></textarea>
+                    <span asp-validation-for="AdoptionReason" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Adopt" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </dl>
 </div>
-<div>
-    @if (User.Identity.IsAuthenticated && Model.RaisedBy == User.Identity.Name)
-    {
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a><span> |</span>
-        <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a><span> |</span>
-    }
-    <a asp-action="Index" class="AND-button">Back to List</a>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <a asp-action="Index">Back to List</a>
+</form>
 </div>
-
-
