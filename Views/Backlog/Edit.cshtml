@@ -26,7 +26,7 @@
 <div class="product-info">
 <h1>Edit</h1>
 
-    <h1>Details for <span>@Model.CustomerProblem</span></h1>
+    <h1>Editing <span>@Model.CustomerProblem</span></h1>
 
     <form asp-action="EditIdea" value="@Model.Id">
         <div class="row">
@@ -72,8 +72,10 @@
                     <div class="EditIdeaFormTitle"><p>Bootcamp Assigned</p></div>
                     <input asp-for="BootcampAssigned" type="text" class="bootcamp-assigned" />
                     <div class="EditIdeaFormTitle"><p>Solution Description</p></div>
+
                     <input asp-for="SolutionDescription" type="text" class="solution-description" />
-                    <div class="LinksTitle"><a>Project Links</a></div>
+
+                    <p>Project Links</p>
                     <input asp-for="Links" type="text" class="links" />
                     @*Html.DisplayNameFor(model => model.Id)*@
                     <input asp-for="Id" type="hidden" class="id" />
