@@ -1,33 +1,28 @@
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using IdeasTracker.Data;
 using IdeasTracker.Models;
 using Microsoft.AspNetCore.Authorization;
-using IdeasTracker.Business.Enums;
-using IdeasTracker.Converters; 
+using IdeasTracker.Business.Uows.Interfaces;
 
 namespace IdeasTracker.Controllers
 {
     [Authorize]
     public class BackLogController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        private readonly IBacklogToBackLogModelConverter _backlogToBackLogModelConverter;
+        private readonly IBackLogUow _backlogUow;
 
 
-        public BackLogController(ApplicationDbContext context, IBacklogToBackLogModelConverter backlogToBackLogModelConverter)
+        public BackLogController(IBackLogUow backlogUow)
         {
-            _context = context;
-            _backlogToBackLogModelConverter = backlogToBackLogModelConverter;
+            _backlogUow = backlogUow;
         }
 
         [Authorize] 
         public async Task<IActionResult> Index()
         {
 
-            return View(await _context.BackLogs.ToListAsync());
+            return View(await _backlogUow.GetAllBackLogItemsAsync());
         }
 
         // GET: BackLogItem/Details/5
@@ -38,8 +33,7 @@ namespace IdeasTracker.Controllers
                 return NotFound();
             }
 
-            var backLogItem = await _context.BackLogs
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var backLogItem = await _backlogUow.GetBackLogItemAsync(id);
             if (backLogItem == null)
             {
                 return NotFound();
@@ -62,50 +56,28 @@ namespace IdeasTracker.Controllers
 
         //[ValidateAntiForgeryToken]
         //[Authorize] 
-        public async Task<IActionResult> Create([Bind("CustomerProblem,ProblemDescription")] BackLog backLog)
+        public async Task<IActionResult> Create([Bind("CustomerProblem,ProblemDescription")] CreateIdeaModel createIdeaModel)
         {
-            backLog.RaisedBy = User.Identity.Name;
-            backLog.Status = "Pending";
-
-
             if (ModelState.IsValid)
             {
-                _context.Add(backLog);
-                await _context.SaveChangesAsync();
+                createIdeaModel.RaisedBy = User.Identity.Name;
+                await _backlogUow.CreateBackLogItemAsync(createIdeaModel);
                 return RedirectToAction(nameof(Index));
             }
-            return View(backLog);
+            return View(createIdeaModel);
         }
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> EditIdea([Bind("Id,ProductOwner,BootcampAssigned,SolutionDescription, Status, Links")] BackLog backLog)
+        [ValidateAntiForgeryToken] 
+        public async Task<IActionResult> EditIdea([Bind("Id,ProductOwner,BootcampAssigned,SolutionDescription, Status, Links")] BacklogModel backLogModel)
         {
-            var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == backLog.Id);
-
-            if (backLog.Status.Equals("Idea-Pending") && !string.IsNullOrWhiteSpace(backLog.ProductOwner))
-            {
-                backlogItem.Status = "Adopted";
-                backlogItem.ProductOwner = backLog.ProductOwner;
-            }
-            else
-            {
-                backlogItem.ProductOwner = backLog.ProductOwner;
-                backlogItem.Status = backLog.Status;
-                backlogItem.BootcampAssigned = backLog.BootcampAssigned;
-                backlogItem.SolutionDescription = backLog.SolutionDescription;
-                backlogItem.Links = backLog.Links;
-            }
-
             if (ModelState.IsValid)
             {
-                _context.Update(backlogItem);
-                await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                await _backlogUow.EditBackLogItemAsync(backLogModel);
+                return RedirectToAction(nameof(Index));
             }
-            return View(backLog);
+            return View(backLogModel);
         }
 
         // GET: BackLogItem/Edit/5
@@ -116,7 +88,7 @@ namespace IdeasTracker.Controllers
                 return NotFound();
             }
 
-            var backLogItem = await _context.BackLogs.FindAsync(id);
+            var backLogItem = await _backlogUow.GetBackLogItemAsync(id);
             if (backLogItem == null)
             {
                 return NotFound();
@@ -126,89 +98,67 @@ namespace IdeasTracker.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken] 
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Artist,Venue,ShowDate")] BackLog backLog)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Artist,Venue,ShowDate")] BacklogModel backLogModel)
         {
-            backLog.RaisedBy = User.Identity.Name;
-            if (id != backLog.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
+                backLogModel.RaisedBy = User.Identity.Name;
+                if (id != backLogModel.Id)
+                {
+                    return NotFound();
+                }
                 try
                 {
-                    _context.Update(backLog);
-                    await _context.SaveChangesAsync();
+                    await _backlogUow.EditBackLogItemAsync(backLogModel);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BackLogItemExists(backLog.Id))
+                    if (!await _backlogUow.IsBackLogItemExistsAsync(backLogModel.Id))
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(backLog);
+            return View(backLogModel);
         }
         // GET: BackLogItem/Edit/5
         [Authorize]
         public async Task<IActionResult> Adopt(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var backLogItem = await _context.BackLogs.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            var backLogItem = await _backlogUow.GetBackLogItemAsync(id);
             if (backLogItem == null)
             {
                 return NotFound();
             }
-            return View(_backlogToBackLogModelConverter.Convert(backLogItem));
+            return View(backLogItem);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Adopt([Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backLog) 
+        public async Task<IActionResult> Adopt([Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backlogModel) 
         {
-
             if (ModelState.IsValid)
             {
                 try
                 {
 
-                    backLog.Status = "Adoption Requested";
-                    var backlogiem = await _context.BackLogs.FirstAsync(x => x.Id == backLog.Id);
-                    if (backlogiem == null)
-                        NotFound();
-                    backlogiem.AdoptedBy = backLog.AdoptedBy;
-                    backlogiem.AdoptionValue = backLog.AdoptionValue;
-                    backlogiem.AdoptionReason = backLog.AdoptionReason;
-                    _context.Update(backlogiem);
-                    await _context.SaveChangesAsync();
+                    await _backlogUow.AdoptIdeaAsync(backlogModel);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BackLogItemExists(backLog.Id))
+                    if (!await _backlogUow.IsBackLogItemExistsAsync(backlogModel.Id))
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(backLog);
+            return View(backlogModel);
         }
 
         // POST: BacklogItem/Edit/5
@@ -224,13 +174,7 @@ namespace IdeasTracker.Controllers
                 return NotFound();
             }
 
-            var backLogItem = await _context.BackLogs
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (backLogItem != null)
-            {
-                _context.Remove(backLogItem);
-                await _context.SaveChangesAsync();
-            }
+            await _backlogUow.DeleteBackLogItem(id);
 
             return Redirect("/BackLog");
         }
@@ -239,15 +183,9 @@ namespace IdeasTracker.Controllers
         [ValidateAntiForgeryToken] 
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var backLogItem = await _context.BackLogs.FindAsync(id);
-            _context.BackLogs.Remove(backLogItem);
-            await _context.SaveChangesAsync();
+            await _backlogUow.DeleteBackLogItem(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool BackLogItemExists(int id)
-        {
-            return _context.BackLogs.Any(e => e.Id == id);
-        }
+        } 
+        
     }
 }

@@ -7,5 +7,10 @@
   <ItemGroup>
     <Folder Include="Context\" />
     <Folder Include="Context\Interface\" />
+    <Folder Include="Entities\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
   </ItemGroup>
 </Project>

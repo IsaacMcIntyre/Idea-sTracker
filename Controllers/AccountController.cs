@@ -24,7 +24,7 @@ namespace IdeasTracker.Controllers
         }
         public ActionResult AccessDenied()
         {
-            return View();
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult PostLogout()
         {

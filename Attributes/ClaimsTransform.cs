@@ -1,10 +1,9 @@
-﻿using System;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using IdeasTracker.Data;
+﻿using System.Security.Claims;
+using System.Threading.Tasks; 
 using System.Linq;
 using Microsoft.AspNetCore.Authentication;
-using IdeasTracker.Business.Enums;
+using IdeasTracker.Constants;
+using IdeasTracker.Database.Context;
 
 namespace IdeasTracker.Attributes
 {

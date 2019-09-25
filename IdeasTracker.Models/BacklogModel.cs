@@ -18,8 +18,7 @@ namespace IdeasTracker.Models
 
 		[Display(Name = "Product Owner")]
 		public string ProductOwner { get; set; }
-
-		//[Display(Name = "Raised by")]
+         
 		public string Status { get; set; }
 
 		[Display(Name = "Bootcamp Assigned")]
@@ -27,11 +26,10 @@ namespace IdeasTracker.Models
 
 		[Display(Name = "Solution Description")]
 		public string SolutionDescription { get; set; }
-
-		//[Display(Name = "Links")]
+         
 		public string Links { get; set; }
 
-		//[Display(Name = "Raised by")]
+		[Display(Name = "Is Adopted")]
 		public int IsAdopted { get; set; }
 
 		[Display(Name = "Adopted By")]

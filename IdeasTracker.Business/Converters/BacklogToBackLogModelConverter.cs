@@ -1,6 +1,7 @@
-﻿using System;
+﻿using IdeasTracker.Business.Converters.Interfaces;
+using IdeasTracker.Database.Entities;
 using IdeasTracker.Models;
-namespace IdeasTracker.Converters
+namespace IdeasTracker.Business.Converters
 {
     public class BacklogToBackLogModelConverter: IBacklogToBackLogModelConverter
 	{

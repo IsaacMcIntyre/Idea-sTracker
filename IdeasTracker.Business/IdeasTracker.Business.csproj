@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Enums\" />
     <Folder Include="Uows\" />
     <Folder Include="Uows\Interfaces\" />
     <Folder Include="Converters\" />
@@ -13,5 +12,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Enums\Roles.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IdeasTracker.Database\IdeasTracker.Database.csproj" />
+    <ProjectReference Include="..\IdeasTracker.Models\IdeasTracker.Models.csproj" />
   </ItemGroup>
 </Project>
