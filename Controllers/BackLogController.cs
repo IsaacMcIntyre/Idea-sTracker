@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using IdeasTracker.Models;
 using Microsoft.AspNetCore.Authorization;
 using IdeasTracker.Business.Uows.Interfaces;
+using IdeasTracker.Constants;
 
 namespace IdeasTracker.Controllers
 {
@@ -60,7 +61,7 @@ namespace IdeasTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                createIdeaModel.RaisedBy = User.Identity.Name;
+                createIdeaModel.RaisedBy = User.Identity.Name; 
                 await _backlogUow.CreateBackLogItemAsync(createIdeaModel);
                 return RedirectToAction(nameof(Index));
             }
@@ -144,8 +145,8 @@ namespace IdeasTracker.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
-
+                { 
+                    backlogModel.Status = IdeaStatuses.AdoptionRequested;
                     await _backlogUow.AdoptIdeaAsync(backlogModel);
                 }
                 catch (DbUpdateConcurrencyException)

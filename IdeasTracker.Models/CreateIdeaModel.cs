@@ -9,6 +9,6 @@ namespace IdeasTracker.Models
         [Display(Name = "Customer Problem")]
         public string CustomerProblem { get; set; }
         [Display(Name = "Problem Description")]
-        public string ProblemDescription { get; set; }
+        public string ProblemDescription { get; set; } 
     }
 }
