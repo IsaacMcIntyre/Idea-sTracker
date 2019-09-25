@@ -164,7 +164,7 @@ img.big-image-logo {
     background: #f2f2f2;
     padding: 1em 1em;
     border: 1px solid #f3f3f3;
-    width: 32em;
+    width: 100%;
 }
 
 .product-info p {
@@ -173,6 +173,7 @@ img.big-image-logo {
     color: darkgray;
     padding: 0em 0em 0em 0em;
     margin-top: 1em;
+    font-weight: 700;
 }
 .buttons {
     margin-bottom: 1em;
@@ -185,7 +186,7 @@ img.big-image-logo {
 #create h1 {
     margin-left: 15px;
     text-align: center;
-    margin-top: 0.25em;
+    margin-top: 0.5em;
     margin-bottom: 0.75em;
 }
 
@@ -199,6 +200,18 @@ img.big-image-logo {
         margin-bottom: 0.75em;
     }
 
+select#status {
+    background: #f2f2f2;
+    border: 1px solid #f3f3f3;
+    width: 100%;
+    height: 57.29px;
+    text-indent: 0.5em;
+}
+
+#editButtons {
+    margin-top: 1em;
+}
+
 /***/
 
 @media (min-width: 768px){
@@ -209,7 +222,7 @@ img.big-image-logo {
     .top-table-imgs {
         margin-bottom: 2em;
         margin-top: 2em;
-        margin-left: -2em;
+        margin-left: -30px;
     }
         .top-table-imgs img {
             border-radius: 100%;
@@ -231,10 +244,13 @@ img.big-image-logo {
         text-align: center;
     }
     .col-sm-4.second-child {
-        margin-left: -5em;
+        margin-left: -1em;
     }
     .col-sm-4.final-child {
         margin-left: -3.5em;
+    }
+    .navbar {
+        padding: 0em 1em;
     }
 }
 
@@ -287,6 +303,8 @@ a.AND-button:hover {
 /**/
 .table thead th {
     background: #f3f3f3;
+    font-size: 0.8em;
+
 }
 
 .table th, .table td {
@@ -297,7 +315,7 @@ a.AND-button:hover {
     vertical-align: bottom;
     border-bottom: 1px solid #fff;
     border-top: 1px solid #fff;
-
+    line-height: 3em;
     padding: 1em 1em;
 }
 /*Table boiii*/
@@ -333,4 +351,30 @@ a.AND-button:hover {
     margin-top: 2em;
     width: 32em;
     padding: 1em;
+}
+
+/* Status */
+
+.Pending {
+    color: #6c9deb;
+}
+
+.Idea-Accepted {
+    color: #664da7;
+}
+
+.Idea-Bootcamp {
+    color: #e06665;
+}
+
+.Project-Adaptable {
+    color: #feff00;
+}
+
+.Adopted {
+    color: #ff05df;
+}
+
+.links-link {
+    max-width: 300px;
 }

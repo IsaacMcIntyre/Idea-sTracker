@@ -33,7 +33,4 @@
     <Folder Include="Views\Role\" />
     <Folder Include="Constants\" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Remove="Views\Backlog\Create.cshtml" />
-  </ItemGroup>
 </Project>

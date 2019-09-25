@@ -1,12 +1,15 @@
-@model IEnumerable<IdeasTracker.Database.Entities.BackLog>
+@model IEnumerable<IdeasTracker.Models.BacklogModel>
 
 @{
     ViewData["Title"] = "Backlog";
 }
 
 @section scripts{
-    <script>$('#image').css('background-image', 'url(https://i.imgur.com/Msz7n6a.png)');
-        $("#image-text").text("Let\'s see what our ANDis have been up to!");</script>
+<script>$('#image').css('background-image', 'url(https://i.imgur.com/Msz7n6a.png)');
+    $("#image-text").text("Let\'s see what our ANDis have been up to!");
+    $(window).scroll(function () {
+        $(".hero-image").children().css("opacity", 1 - $(window).scrollTop() / 250);
+    });</script>
 }
 
 <div class="row top-table-imgs">
@@ -84,7 +87,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.CustomerProblem)
                 </td>
-                <td>
+                <td class="@Html.DisplayFor(modelItem => item.Status)">
+
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
@@ -100,7 +104,7 @@
                 <div class="details-btn-group">
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-light"><i class="fas fa-info-circle"></i> Details</a>
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
-                    @if (item.Status == "Bootcamp Complete"){
+                    @if (item.Status == "Project-Adoptable"){
                         <a asp-action="Adopt" asp-route-id="@item.Id" class="btn AND-button"><i class="far fa-handshake"></i> Adopt</a>
                     }
                 </div>
