@@ -15,14 +15,24 @@ namespace IdeasTracker.Attributes
             _context = context;
         }
 
-        public async Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
+        public async Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal claimPrincipal)
         {
-            var identity = principal.Identity as ClaimsIdentity;
+            if (!claimPrincipal.Identity.IsAuthenticated)
+                return await Task.FromResult(claimPrincipal);
 
-            var user = _context.Users.FirstOrDefault(x => x.Name.ToLower().Trim() == identity.Name.ToLower().Trim());
+            var identity = claimPrincipal.Identity as ClaimsIdentity;
+            var emailClaim = FindClaim(claimPrincipal, "Email");
+            if (emailClaim == null)
+                return await Task.FromResult(claimPrincipal);
+
+            var user = _context.Users.FirstOrDefault(x => x.Email.ToLower().Trim() == emailClaim.Value.Trim().ToLower());
             identity.AddClaim(new Claim(ClaimTypes.Role, user == null ? Roles.Andi : user.Role));
 
-            return await Task.FromResult(principal);
+            return await Task.FromResult(claimPrincipal);
+        }
+        public static Claim FindClaim(ClaimsPrincipal claimPrincipal, string claimType)
+        { 
+            return claimPrincipal?.FindFirst(claimType);
         }
     }
 }

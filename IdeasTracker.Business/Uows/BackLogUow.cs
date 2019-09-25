@@ -2,11 +2,11 @@
 using IdeasTracker.Business.Converters.Interfaces;
 using IdeasTracker.Business.Uows.Interfaces;
 using IdeasTracker.Database.Context;
-using IdeasTracker.Models;
-using System.Linq;
+using IdeasTracker.Models; 
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using IdeasTracker.Database.Entities;
+using IdeasTracker.Business.Constants;
 
 namespace IdeasTracker.Business.Uows
 {
@@ -49,17 +49,17 @@ namespace IdeasTracker.Business.Uows
 
             if (!string.IsNullOrWhiteSpace(backlogModel.ProductOwner) && string.IsNullOrWhiteSpace(backlogModel.BootcampAssigned))
             {
-                backlogItem.Status = "PO Assigned";
+                backlogItem.Status = IdeaStatuses.PoAssigned;
             }
 
             if (!string.IsNullOrWhiteSpace(backlogModel.BootcampAssigned) && string.IsNullOrWhiteSpace(backlogModel.ProductOwner))
             {
-                backlogItem.Status = "Bootcamp Assigned";
+                backlogItem.Status = IdeaStatuses.BootcampAssigned;
             }
 
             if (!string.IsNullOrWhiteSpace(backlogModel.BootcampAssigned) && !string.IsNullOrWhiteSpace(backlogModel.ProductOwner))
             {
-                backlogItem.Status = "In Bootcamp";
+                backlogItem.Status = IdeaStatuses.InBootcamp;
             }
 
 
@@ -68,14 +68,14 @@ namespace IdeasTracker.Business.Uows
                 !string.IsNullOrWhiteSpace(backlogModel.SolutionDescription) &&
                 !string.IsNullOrWhiteSpace(backlogModel.Links))
             {
-                backlogItem.Status = "Project Adoptable";
+                backlogItem.Status = IdeaStatuses.ProjectAdoptable;
             }
 
             if (string.IsNullOrWhiteSpace(backlogModel.BootcampAssigned) &&
                 string.IsNullOrWhiteSpace(backlogModel.ProductOwner) &&
-                !backlogItem.Status.Equals("Idea Pending"))
+                !backlogItem.Status.Equals(IdeaStatuses.IdeaPending))
             {
-                backlogItem.Status = "Idea Accepted";
+                backlogItem.Status = IdeaStatuses.IdeaAccepted;
             }
 
             _context.Update(backlogItem);
@@ -90,7 +90,7 @@ namespace IdeasTracker.Business.Uows
                 ProblemDescription = createIdeaModel.ProblemDescription,
                 CustomerProblem = createIdeaModel.CustomerProblem,
                 RaisedBy = createIdeaModel.RaisedBy,
-                Status = "Idea Pending"
+                Status = IdeaStatuses.IdeaPending
             });
             await _context.SaveChangesAsync();
         }
@@ -103,9 +103,10 @@ namespace IdeasTracker.Business.Uows
                 backlogiem.AdoptedBy = backlogModel.AdoptedBy;
                 backlogiem.AdoptionValue = backlogModel.AdoptionValue;
                 backlogiem.AdoptionReason = backlogModel.AdoptionReason;
-                backlogiem.Status = "Adoption Requested";
                 _context.Update(backlogiem);
                 await _context.SaveChangesAsync();
+                //TODO: Send Email 
+
             }
         }
 
