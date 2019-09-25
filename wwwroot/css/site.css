@@ -397,3 +397,15 @@ a.AND-button:hover {
     margin-top: 0.75em;
 }
 
+/* Create Page Context */
+
+#create-context p {
+    color: #656565;
+}
+
+#Create-form input.btn.AND-button {
+    background: #ff323b;
+    color: #fff;
+    width: 100%;
+    padding: 0.75em 0em;
+}
