@@ -26,7 +26,9 @@ namespace IdeasTracker.Controllers
         public async Task<IActionResult> Index()
         {
 
-            return View(await _backlogUow.GetAllBackLogItemsAsync());
+            var items = await _backlogUow.GetAllBackLogItemsAsync();
+            items.ForEach(x => x.Status = x.Status.Replace(' ', '-'));
+            return View(items);
         }
 
         // GET: BackLogItem/Details/5
