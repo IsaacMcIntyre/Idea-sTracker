@@ -274,14 +274,26 @@ select#status {
 /* AND Button */
 
 .AND-btn-create {
-    background: #bbbbbb !important;
-    font-size: 1em;
+    font-size: 1.2em;
     margin-left: 0em;
     line-height: 1em;
+    padding: 0.7em 0.8em;
+    background: #8BC34A;
+    color: white;
+    width: 100%;
+}
+
+.backlog-btn a.AND-button {
+    width: 100%;
+}
+
+.backlog-btn a.btn.btn-light {
+    width: 100%;
 }
 
 a.AND-btn-create:hover {
-        background: #989898 !important;
+        background: #70a533 !important;
+        color: #fff;
 }
 
 a.AND-button {
