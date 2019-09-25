@@ -2,11 +2,11 @@
 using IdeasTracker.Business.Converters.Interfaces;
 using IdeasTracker.Business.Uows.Interfaces;
 using IdeasTracker.Database.Context;
-using IdeasTracker.Models;
-using System.Linq;
+using IdeasTracker.Models; 
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using IdeasTracker.Database.Entities;
+using IdeasTracker.Business.Constants;
 
 namespace IdeasTracker.Business.Uows
 {
@@ -38,9 +38,9 @@ namespace IdeasTracker.Business.Uows
         {
             var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == backlogModel.Id);
 
-            if (backlogModel.Status.Equals("Idea-Pending") && !string.IsNullOrWhiteSpace(backlogModel.ProductOwner))
+            if (backlogModel.Status.Equals(IdeaStatuses.IdeaPending) && !string.IsNullOrWhiteSpace(backlogModel.ProductOwner))
             {
-                backlogItem.Status = "Adopted";
+                backlogItem.Status = IdeaStatuses.Adopted;
                 backlogItem.ProductOwner = backlogModel.ProductOwner;
             }
             else
@@ -61,7 +61,7 @@ namespace IdeasTracker.Business.Uows
                 ProblemDescription = createIdeaModel.ProblemDescription,
                 CustomerProblem = createIdeaModel.CustomerProblem,
                 RaisedBy = createIdeaModel.RaisedBy,
-                Status = "Pending"
+                Status = IdeaStatuses.IdeaPending
             });
             await _context.SaveChangesAsync();
         }
@@ -73,7 +73,6 @@ namespace IdeasTracker.Business.Uows
                 backlogiem.AdoptedBy = backlogModel.AdoptedBy;
                 backlogiem.AdoptionValue = backlogModel.AdoptionValue;
                 backlogiem.AdoptionReason = backlogModel.AdoptionReason;
-                backlogiem.Status = "Adoption Requested";
                 _context.Update(backlogiem);
                 await _context.SaveChangesAsync();
             }

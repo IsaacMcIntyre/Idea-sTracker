@@ -54,12 +54,12 @@
                 </p>
                 <p>Status</p>
                 <select asp-for="Status" id="status">
-                    <option value="Idea-Pending">Idea Pending</option>
-                    <option value="Idea-Accepted">Idea Accepted</option>
-                    <option value="In-Bootcamp">In Bootcamp</option>
-                    <option value="Project-Adoptable">Project Adoptable</option>
-                    <option value="Andoption-Request">Andoption Request</option>
-                    <option value="Adopted">Adopted</option>
+                    <option value="@(IdeasTracker.Constants.IdeaStatuses.IdeaPending)">Idea Pending</option>
+                    <option value="@(IdeasTracker.Constants.IdeaStatuses.IdeaAccepted)">Idea Accepted</option>
+                    <option value="@(IdeasTracker.Constants.IdeaStatuses.InBootcamp)">In Bootcamp</option>
+                    <option value="@(IdeasTracker.Constants.IdeaStatuses.ProjectAdoptable)">Project Adoptable</option>
+                    <option value="@(IdeasTracker.Constants.IdeaStatuses.AdoptionRequested)">Adoption Requested</option>
+                    <option value="@(IdeasTracker.Constants.IdeaStatuses.Adopted)">Adopted</option>
                 </select>
 
 
@@ -83,6 +83,7 @@
                 </div>
 
             </div>
+        </div>
     </form>
     <div class="col-lg-12" id="editButtons">
 
@@ -90,14 +91,13 @@
         {
             <a class="btn AND-button" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-pencil-alt"></i> Edit</a>
             <a class="btn AND-button" asp-action="Delete" asp-route-id="@Model.Id"><i class="fas fa-trash-alt"></i> Delete</a>
-            @if (Model.Status == "Project Adoptable")
+            @if (Model.Status == IdeasTracker.Constants.IdeaStatuses.ProjectAdoptable)
             {
                 <a class="btn AND-button" asp-action="Adopt" asp-route-id="@Model.Id"><i class="far fa-handshake"></i> Adopt</a>
             }
         }
         <a asp-action="Index" class="btn AND-button"><i class="fas fa-arrow-left"></i> Back to List</a>
     </div>
-</div>
-</div>
+</div> 
 
 

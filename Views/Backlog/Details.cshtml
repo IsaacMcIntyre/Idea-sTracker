@@ -19,7 +19,7 @@
     <h1>Details for <span>@Model.CustomerProblem</span></h1>
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="@(Model.Status != IdeasTracker.Constants.IdeaStatuses.IdeaPending? "col-lg-6":"col-lg-12")">
 
             
                 <p class="">
@@ -55,7 +55,8 @@
             
 
         </div>
-
+        @if (Model.Status != IdeasTracker.Constants.IdeaStatuses.IdeaPending)
+        {
         <div class="col-lg-6">
             
                 <p>
@@ -89,17 +90,16 @@
                     <div class="text-display">
                         <a href="@Model.Links" class="links-link">@Model.Links</a>
                     </div>
-                </p>
-            
+                </p> 
 
         </div>
-
+        }
     </div>
 
 </div>
 
 <div>
-    @if (User.Identity.IsAuthenticated && Model.RaisedBy == User.Identity.Name)
+    @if (User.Identity.IsAuthenticated && Model.RaisedBy == User.Identity.Name && Model.Status != IdeasTracker.Constants.IdeaStatuses.IdeaPending)
     {
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
         <a asp-action="Delete" asp-route-id="@Model.Id" class="btn AND-button"><i class="fas fa-trash-alt"></i> Delete</a>

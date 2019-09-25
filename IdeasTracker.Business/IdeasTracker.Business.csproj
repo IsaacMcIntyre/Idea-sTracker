@@ -9,6 +9,7 @@
     <Folder Include="Uows\Interfaces\" />
     <Folder Include="Converters\" />
     <Folder Include="Converters\Interfaces\" />
+    <Folder Include="Constants\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Enums\Roles.json" />
