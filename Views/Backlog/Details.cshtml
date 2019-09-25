@@ -98,7 +98,7 @@
 
 </div>
 
-<div>
+<div class="details-buttons">
     @if (User.Identity.IsAuthenticated && Model.RaisedBy == User.Identity.Name)
     {
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
