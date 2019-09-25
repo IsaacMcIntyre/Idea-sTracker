@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using IdeasTracker.Models;
 using Microsoft.AspNetCore.Authorization;
 using IdeasTracker.Business.Uows.Interfaces;
+using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace IdeasTracker.Controllers
 {
@@ -18,7 +20,7 @@ namespace IdeasTracker.Controllers
             _backlogUow = backlogUow;
         }
 
-        [Authorize] 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
 
@@ -52,7 +54,7 @@ namespace IdeasTracker.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
 
         //[ValidateAntiForgeryToken]
         //[Authorize] 
@@ -69,7 +71,7 @@ namespace IdeasTracker.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditIdea([Bind("Id,ProductOwner,BootcampAssigned,SolutionDescription, Status, Links")] BacklogModel backLogModel)
         {
             if (ModelState.IsValid)
@@ -97,7 +99,7 @@ namespace IdeasTracker.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Artist,Venue,ShowDate")] BacklogModel backLogModel)
         {
             if (ModelState.IsValid)
@@ -139,7 +141,7 @@ namespace IdeasTracker.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Adopt([Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backlogModel) 
+        public async Task<IActionResult> Adopt([Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backlogModel)
         {
             if (ModelState.IsValid)
             {
@@ -180,12 +182,56 @@ namespace IdeasTracker.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _backlogUow.DeleteBackLogItem(id);
             return RedirectToAction(nameof(Index));
-        } 
+        }
+
         
+
+        //[Authorize]
+        //public async Task<IActionResult> Export() 
+        //{
+           
+        //    var backlogList = _backlogUow.GetAllBackLogItemsAsync();
+        //    StringBuilder builder = new StringBuilder();
+
+        //    foreach (var backlogItem in backlogList)
+        //    {
+        //        bool isFirstCol = true;
+
+        //        JObject backlogProperties = JObject.FromObject(backlogItem);
+
+        //        foreach (JProperty property in backlogProperties.Properties())
+        //        {
+        //            string value = property.Value.ToString();
+
+
+        //            if (!isFirstCol)
+        //            {
+        //                builder.Append(",");
+        //            }
+
+        //            if (value.IndexOfAny(new char[] { '"', ',' }) != -1)
+        //            {
+        //                builder.AppendFormat("\"{0}\"", value.Replace("\"", "\"\""));
+
+        //            }
+        //            else
+        //            {
+        //                builder.Append(value);
+
+        //            }
+        //            isFirstCol = false;
+
+
+        //        }
+
+
+
+        //    }
+        //}
     }
 }
