@@ -316,7 +316,7 @@ a.AND-button:hover {
 /**/
 .table thead th {
     background: #f3f3f3;
-    font-size: 0.8em;
+    font-size: 12px;
 
 }
 
@@ -368,24 +368,34 @@ a.AND-button:hover {
 
 /* Status */
 
-.Pending {
+.Idea-Pending {
     color: #6c9deb;
+            font-weight: 500;
 }
 
 .Idea-Accepted {
     color: #664da7;
 }
 
-.Idea-Bootcamp {
-    color: #e06665;
+.In-Bootcamp {
+    color: #e06666;
 }
 
-.Project-Adaptable {
-    color: #feff00;
+.PO-Assigned {
+color: #ff323b;
+}
+
+.Project-Adoptable {
+    color: #92c47c;
 }
 
 .Adopted {
     color: #ff05df;
+}
+
+.Adoption-Request {
+    color: #feff00;
+
 }
 
 .links-link {
