@@ -1,7 +1,7 @@
-using IdeasTracker.Models;
+﻿using IdeasTracker.Database.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace IdeasTracker.Data
+namespace IdeasTracker.Database.Context
 {
     public class ApplicationDbContext : DbContext
     {

@@ -1,12 +1,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using IdeasTracker.Data;
+using Microsoft.EntityFrameworkCore; 
 using IdeasTracker.Models;
-using Microsoft.AspNetCore.Authorization;
-using IdeasTracker.Business.Enums;
-using IdeasTracker.Converters; 
+using Microsoft.AspNetCore.Authorization;  
+using IdeasTracker.Database.Context;
+using IdeasTracker.Business.Converters.Interfaces;
+using IdeasTracker.Database.Entities;
 
 namespace IdeasTracker.Controllers
 {

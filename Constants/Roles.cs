@@ -1,4 +1,5 @@
-﻿namespace IdeasTracker.Business.Enums
+﻿using System;
+namespace IdeasTracker.Constants
 {
     public static class Roles
     {
