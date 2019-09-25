@@ -3,9 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using IdeasTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using IdeasTracker.Email;
 using IdeasTracker.Business.Uows.Interfaces;
 using System.Text;
 using Newtonsoft.Json.Linq;
+using System.Linq;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace IdeasTracker.Controllers
 {
@@ -24,7 +28,9 @@ namespace IdeasTracker.Controllers
         public async Task<IActionResult> Index()
         {
 
-            return View(await _backlogUow.GetAllBackLogItemsAsync());
+            var items = await _backlogUow.GetAllBackLogItemsAsync();
+            items.ForEach(x => x.Status = x.Status.Replace(' ', '-'));
+            return View(items);
         }
 
         // GET: BackLogItem/Details/5
@@ -143,6 +149,12 @@ namespace IdeasTracker.Controllers
         [Authorize]
         public async Task<IActionResult> Adopt([Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backlogModel)
         {
+            List<System.Security.Claims.Claim> userClaims = HttpContext.User.Claims.ToList();
+            string userEmail = userClaims[2].Value;
+
+            MailSenderFeature.SendEmail("emailsendingtestaddress@gmail.com", "There has been a new request to adopt an idea.", "Adoption Request"); //email to club tensing
+            MailSenderFeature.SendEmail(userEmail, "Thank you, your adoption request has been submitted.", "Adoption Request"); //email to adopter
+
             if (ModelState.IsValid)
             {
                 try
@@ -190,48 +202,5 @@ namespace IdeasTracker.Controllers
         }
 
         
-
-        //[Authorize]
-        //public async Task<IActionResult> Export() 
-        //{
-           
-        //    var backlogList = _backlogUow.GetAllBackLogItemsAsync();
-        //    StringBuilder builder = new StringBuilder();
-
-        //    foreach (var backlogItem in backlogList)
-        //    {
-        //        bool isFirstCol = true;
-
-        //        JObject backlogProperties = JObject.FromObject(backlogItem);
-
-        //        foreach (JProperty property in backlogProperties.Properties())
-        //        {
-        //            string value = property.Value.ToString();
-
-
-        //            if (!isFirstCol)
-        //            {
-        //                builder.Append(",");
-        //            }
-
-        //            if (value.IndexOfAny(new char[] { '"', ',' }) != -1)
-        //            {
-        //                builder.AppendFormat("\"{0}\"", value.Replace("\"", "\"\""));
-
-        //            }
-        //            else
-        //            {
-        //                builder.Append(value);
-
-        //            }
-        //            isFirstCol = false;
-
-
-        //        }
-
-
-
-        //    }
-        //}
     }
 }

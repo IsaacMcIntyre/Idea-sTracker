@@ -17,11 +17,10 @@
 <div id="create" class="row">
    
     <div class="col-lg-12">
-        <h1>Create</h1> 
-        <h1>Build week project submission.</h1>
+        <h1>Your Build week project submission.</h1>
     </div>
 
-    <div class="col-lg-6"> 
+    <div class="col-lg-6" id="Create-form"> 
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -36,7 +35,7 @@
             </div>
             <div class="form-group">
 
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn AND-button" />
 
             </div>
         </form>
@@ -45,10 +44,14 @@
 
     <div class="col-lg-6">
          <div id="create-context">
-            <h2>What makes a good problem description?</h2>
-                <ul>
-                    <li>Hello</li>
-                </ul>
+            <h2 class="mt-2">What makes a good customer problem?</h2>
+                <p>
+                    Provide a short description of the problem (no more than two sentences).
+                </p>
+            <h2 class="mt-3">What makes a good problem description?</h2>
+                <p>
+                    Use this space to provide a more detailed description that covers the problem, including the context and an outlines of some very high level solutions. 
+                </p>
          </div>
     </div>
 

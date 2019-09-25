@@ -7,13 +7,13 @@ namespace IdeasTracker.Email
 {
     static class MailSenderFeature
     {
-        public static string SendEmail( string email, string message, string subject)
+        public static string SendEmail(string email, string message, string subject)
         {
 
             try
             {
                 // Credentials
-                var credentials = new NetworkCredential("emailsendingtestaddress@gmail.com", "USERPASSWORDHERE");
+                var credentials = new NetworkCredential("emailsendingtestaddress@gmail.com", "EMAILPASSWORDHERE");
                 // Mail message
                 var mail = new MailMessage()
                 {
