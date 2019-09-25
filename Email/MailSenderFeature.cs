@@ -13,7 +13,7 @@ namespace IdeasTracker.Email
             try
             {
                 // Credentials
-                var credentials = new NetworkCredential("emailsendingtestaddress@gmail.com", "USERPASSWORDHERE");
+                var credentials = new NetworkCredential("emailsendingtestaddress@gmail.com", "Testing-Password123");
                 // Mail message
                 var mail = new MailMessage()
                 {

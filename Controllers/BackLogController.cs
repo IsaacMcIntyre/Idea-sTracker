@@ -6,7 +6,8 @@ using IdeasTracker.Data;
 using IdeasTracker.Models;
 using Microsoft.AspNetCore.Authorization;
 using IdeasTracker.Business.Enums;
-using IdeasTracker.Converters; 
+using IdeasTracker.Converters;
+using IdeasTracker.Email;
 
 namespace IdeasTracker.Controllers
 {
@@ -179,6 +180,10 @@ namespace IdeasTracker.Controllers
         [Authorize]
         public async Task<IActionResult> Adopt([Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backLog) 
         {
+            var userClaims = HttpContext.User.Claims;
+            //string email = userClaims.
+            MailSenderFeature.SendEmail("emailsendingtestaddress@gmail.com", "There has been a new request to adopt an idea.", "Adoption Request"); //email to club tensing
+            //MailSenderFeature.SendEmail(userClaims); //email to user
 
             if (ModelState.IsValid)
             {
