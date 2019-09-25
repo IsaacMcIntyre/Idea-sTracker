@@ -29,10 +29,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
              <div class="navbar-collapse collapse justify-content-between">
-                 <ul class="navbar-nav mx-auto">
-                     <li class="nav-item">
-                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                     </li>
+                 <ul class="navbar-nav mr-auto">
                      @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
                      {
                          <li class="nav-item">

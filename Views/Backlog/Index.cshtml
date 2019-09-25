@@ -73,6 +73,9 @@
                 <th>
                     <a class="btn AND-btn-create" asp-action="Create"><i class="fas fa-comment-medical"></i> Create New</a>
                 </th>
+                <th>
+                    <a class="btn AND-btn-create" asp-action="Export"><i class="fas fa-file-export"></i> Export</a>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -103,11 +106,13 @@
                 <td>
                 <div class="details-btn-group">
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-light"><i class="fas fa-info-circle"></i> Details</a>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
-                    @if (item.Status == "Project-Adoptable"){
+                </div>
+                </td>
+                <td>
+                  <a asp-action="Edit" asp-route-id="@item.Id" class="btn AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
+                  @if (item.Status == "Project-Adoptable"){
                         <a asp-action="Adopt" asp-route-id="@item.Id" class="btn AND-button"><i class="far fa-handshake"></i> Adopt</a>
                     }
-                </div>
                 </td>
             </tr>
                 }

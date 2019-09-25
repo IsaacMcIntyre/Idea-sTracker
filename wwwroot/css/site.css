@@ -216,7 +216,7 @@ select#status {
 
 @media (min-width: 768px){
     .navbar-brand img {
-        margin-right: -13em;
+        margin-right: 0em;
     }
     a.login {}
     .top-table-imgs {
@@ -377,4 +377,14 @@ a.AND-button:hover {
 
 .links-link {
     max-width: 300px;
+}
+
+/* Create page styling */
+
+#create-context h2 {
+    font-size: 16px;
+}
+
+#create-context li {
+    font-size: 16px;
 }
