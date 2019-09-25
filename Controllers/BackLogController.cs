@@ -1,17 +1,16 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IdeasTracker.Data;
 using IdeasTracker.Models;
 using Microsoft.AspNetCore.Authorization;
-using IdeasTracker.Converters;
+using IdeasTracker.Business.Enums;
+using IdeasTracker.Converters; 
 
 namespace IdeasTracker.Controllers
 {
+    [Authorize]
     public class BackLogController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,10 +22,11 @@ namespace IdeasTracker.Controllers
             _context = context;
             _backlogToBackLogModelConverter = backlogToBackLogModelConverter;
         }
-        [Authorize]
-        // GET: BackLogItem
+
+        [Authorize] 
         public async Task<IActionResult> Index()
         {
+
             return View(await _context.BackLogs.ToListAsync());
         }
 
@@ -49,9 +49,6 @@ namespace IdeasTracker.Controllers
         }
 
 
-
-        // GET: BackLogItem/Create
-        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -61,8 +58,10 @@ namespace IdeasTracker.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ValidateAntiForgeryToken] 
+
         //[ValidateAntiForgeryToken]
-        //[Authorize]
+        //[Authorize] 
         public async Task<IActionResult> Create([Bind("CustomerProblem,ProblemDescription")] BackLog backLog)
         {
             backLog.RaisedBy = User.Identity.Name;
@@ -110,7 +109,6 @@ namespace IdeasTracker.Controllers
         }
 
         // GET: BackLogItem/Edit/5
-        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -127,8 +125,7 @@ namespace IdeasTracker.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
+        [ValidateAntiForgeryToken] 
         public async Task<IActionResult> Edit(int id, [Bind("Id,Artist,Venue,ShowDate")] BackLog backLog)
         {
             backLog.RaisedBy = User.Identity.Name;
@@ -219,8 +216,7 @@ namespace IdeasTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 
 
-        // GET: BackLogItem/Delete/5
-        [Authorize]
+        // GET: BackLogItem/Delete/5 
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -239,17 +235,15 @@ namespace IdeasTracker.Controllers
             return Redirect("/BackLog");
         }
 
-        // POST: BackLogItem/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //[Authorize]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var backLogItem = await _context.BackLogs.FindAsync(id);
-        //    _context.BackLogs.Remove(backLogItem);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken] 
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var backLogItem = await _context.BackLogs.FindAsync(id);
+            _context.BackLogs.Remove(backLogItem);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
         private bool BackLogItemExists(int id)
         {

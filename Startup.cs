@@ -21,7 +21,10 @@ using System.Security.Claims;
 using IdeasTracker.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
-using IdeasTracker.Converters;
+using IdeasTracker.Attributes;
+using IdeasTracker.Business.Uows.Interfaces;
+using IdeasTracker.Business.Uow;
+using IdeasTracker.Converters; 
 
 namespace IdeasTracker
 {
@@ -71,7 +74,8 @@ namespace IdeasTracker
           options.CheckConsentNeeded = context => true;
           options.MinimumSameSitePolicy = SameSiteMode.None;
       });
-
+            services.AddTransient<IClaimsTransformation, ClaimsTransformation>();
+            services.AddTransient<IRoleUow, RolesUow>();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=IdeasTracker.db"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTransient<IBacklogToBackLogModelConverter, BacklogToBackLogModelConverter>();

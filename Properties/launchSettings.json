@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "LiveMusicFinder": {
+    "IdeasTracker": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
