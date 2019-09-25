@@ -331,7 +331,7 @@ a.AND-button:hover {
     background: #f2f2f2;
     padding: 1em 1em;
     border: 1px solid #f3f3f3;
-    width: 32em;
+    width: 100%;
 }
 
 .EditIdeaFormTitle p {
@@ -388,3 +388,12 @@ a.AND-button:hover {
 #create-context li {
     font-size: 16px;
 }
+
+#editForm input.btn.AND-button {
+    background: #ff323b;
+    color: #fff;
+    width: 100%;
+    padding: 0.75em 0em;
+    margin-top: 0.75em;
+}
+
