@@ -29,31 +29,60 @@ namespace IdeasTracker.Business.Uows
             backLogEntities.ForEach(item => backLogItems.Add(_backlogToBackLogModelConverter.Convert(item)));
             return backLogItems;
         }
+
         public async Task<BacklogModel> GetBackLogItemAsync(int? id)
         {
             var backLogItem = await _context.BackLogs.FirstOrDefaultAsync(m => m.Id == id);
             return _backlogToBackLogModelConverter.Convert(backLogItem);
         }
+
         public async Task EditBackLogItemAsync(BacklogModel backlogModel)
         {
             var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == backlogModel.Id);
 
-            if (backlogModel.Status.Equals(IdeaStatuses.IdeaPending) && !string.IsNullOrWhiteSpace(backlogModel.ProductOwner))
+            backlogItem.ProductOwner = backlogModel.ProductOwner;
+            backlogItem.Status = backlogModel.Status;
+            backlogItem.BootcampAssigned = backlogModel.BootcampAssigned;
+            backlogItem.SolutionDescription = backlogModel.SolutionDescription;
+            backlogItem.Links = backlogModel.Links;
+
+
+            if (!string.IsNullOrWhiteSpace(backlogModel.ProductOwner) && string.IsNullOrWhiteSpace(backlogModel.BootcampAssigned))
             {
-                backlogItem.Status = IdeaStatuses.Adopted;
-                backlogItem.ProductOwner = backlogModel.ProductOwner;
+                backlogItem.Status = IdeaStatuses.PoAssigned;
             }
-            else
+
+            if (!string.IsNullOrWhiteSpace(backlogModel.BootcampAssigned) && string.IsNullOrWhiteSpace(backlogModel.ProductOwner))
             {
-                backlogItem.ProductOwner = backlogModel.ProductOwner;
-                backlogItem.Status = backlogModel.Status;
-                backlogItem.BootcampAssigned = backlogModel.BootcampAssigned;
-                backlogItem.SolutionDescription = backlogModel.SolutionDescription;
-                backlogItem.Links = backlogModel.Links;
+                backlogItem.Status = IdeaStatuses.BootcampAssigned;
             }
+
+            if (!string.IsNullOrWhiteSpace(backlogModel.BootcampAssigned) && !string.IsNullOrWhiteSpace(backlogModel.ProductOwner))
+            {
+                backlogItem.Status = IdeaStatuses.InBootcamp;
+            }
+
+
+            if (!string.IsNullOrWhiteSpace(backlogModel.BootcampAssigned) &&
+                !string.IsNullOrWhiteSpace(backlogModel.ProductOwner) &&
+                !string.IsNullOrWhiteSpace(backlogModel.SolutionDescription) &&
+                !string.IsNullOrWhiteSpace(backlogModel.Links))
+            {
+                backlogItem.Status = IdeaStatuses.ProjectAdoptable;
+            }
+
+            if (string.IsNullOrWhiteSpace(backlogModel.BootcampAssigned) &&
+                string.IsNullOrWhiteSpace(backlogModel.ProductOwner) &&
+                !backlogItem.Status.Equals(IdeaStatuses.IdeaPending))
+            {
+                backlogItem.Status = IdeaStatuses.IdeaAccepted;
+            }
+
             _context.Update(backlogItem);
             await _context.SaveChangesAsync();
+
         }
+
         public async Task CreateBackLogItemAsync(CreateIdeaModel createIdeaModel)
         {
             _context.Add(new BackLog
@@ -65,6 +94,7 @@ namespace IdeasTracker.Business.Uows
             });
             await _context.SaveChangesAsync();
         }
+
         public async Task AdoptIdeaAsync(BacklogModel backlogModel)
         { 
             var backlogiem = await _context.BackLogs.FirstAsync(x => x.Id == backlogModel.Id);
@@ -75,8 +105,11 @@ namespace IdeasTracker.Business.Uows
                 backlogiem.AdoptionReason = backlogModel.AdoptionReason;
                 _context.Update(backlogiem);
                 await _context.SaveChangesAsync();
+                //TODO: Send Email 
+
             }
         }
+
         public async Task DeleteBackLogItem(int? id)
         {
             var backLogItem = await _context.BackLogs.FirstOrDefaultAsync(m => m.Id == id);
@@ -86,6 +119,7 @@ namespace IdeasTracker.Business.Uows
                 await _context.SaveChangesAsync();
             }
         }
+
         public async Task<bool> IsBackLogItemExistsAsync(int id)
         {
             return await _context.BackLogs.AnyAsync(e => e.Id == id);

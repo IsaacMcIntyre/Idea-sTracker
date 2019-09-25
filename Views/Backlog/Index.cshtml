@@ -106,22 +106,26 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.AdoptedBy)
                 </td>
-                <td>
-                <div class="details-btn-group"> 
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-light"><i class="fas fa-info-circle"></i> Details</a> 
+                <td> 
+                <div class="details-btn-group">
+                    @if (User.IsInRole(IdeasTracker.Constants.Roles.ClubTenzing))
+                    {
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-light"><i class="fas fa-info-circle"></i> Details</a>
+                    }
+                    
                 </div>
                 </td>
                 <td>
-                    @if (User.IsInRole(IdeasTracker.Constants.Roles.ClubTenzing))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
-                    }
-                  @if (item.Status == IdeasTracker.Constants.IdeaStatuses.ProjectAdoptable){
+                <div class="backlog-btn">
+                  <a asp-action="Edit" asp-route-id="@item.Id" class="btn AND-button mb-1"><i class="fas fa-pencil-alt"></i>   Edit</a>
+                  <a asp-action="Delete" asp-route-id="@item.Id" class="btn AND-button"><i class="fas fa-trash-alt"></i> Delete</a>
+                  @if (item.Status == IdeasTracker.Constants.IdeaStatuses.ProjectAdoptable){ 
                         <a asp-action="Adopt" asp-route-id="@item.Id" class="btn AND-button"><i class="far fa-handshake"></i> Adopt</a>
                     }
+                  </div>
                 </td>
             </tr>
                 }
-</tbody>
+        </tbody>
     </table>
 </div>

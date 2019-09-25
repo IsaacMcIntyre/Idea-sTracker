@@ -53,13 +53,15 @@
                     </div>
                 </p>
                 <p>Status</p>
-                <select asp-for="Status" id="status">
+                <select asp-for="Status" id="status"> 
                     <option value="@(IdeasTracker.Constants.IdeaStatuses.IdeaPending)">Idea Pending</option>
                     <option value="@(IdeasTracker.Constants.IdeaStatuses.IdeaAccepted)">Idea Accepted</option>
+                    <option value="@(IdeasTracker.Constants.IdeaStatuses.PoAssigned)">PO Assigned</option>
+                    <option value="@(IdeasTracker.Constants.IdeaStatuses.BootcampAssigned)">Bootcamp Assigned</option>
                     <option value="@(IdeasTracker.Constants.IdeaStatuses.InBootcamp)">In Bootcamp</option>
                     <option value="@(IdeasTracker.Constants.IdeaStatuses.ProjectAdoptable)">Project Adoptable</option>
-                    <option value="@(IdeasTracker.Constants.IdeaStatuses.AdoptionRequested)">Adoption Requested</option>
-                    <option value="@(IdeasTracker.Constants.IdeaStatuses.Adopted)">Adopted</option>
+                    <option value="@(IdeasTracker.Constants.IdeaStatuses.AdoptionRequest)">Adoption Request</option>
+                    <option value="@(IdeasTracker.Constants.IdeaStatuses.Adopted)">Adopted</option> 
                 </select>
 
 
@@ -79,7 +81,7 @@
                     <input asp-for="Links" type="text" class="links" />
                     @*Html.DisplayNameFor(model => model.Id)*@
                     <input asp-for="Id" type="hidden" class="id" />
-                    <input type="submit" value="Submit" class="btn btn-light">
+                    <input type="submit" value="Submit" class="btn AND-button">
                 </div>
 
             </div>

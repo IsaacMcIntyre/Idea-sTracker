@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using IdeasTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using IdeasTracker.Email;
 using IdeasTracker.Business.Uows.Interfaces;
 using IdeasTracker.Constants;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace IdeasTracker.Controllers
 {
@@ -19,11 +22,13 @@ namespace IdeasTracker.Controllers
             _backlogUow = backlogUow;
         }
 
-        [Authorize] 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
 
-            return View(await _backlogUow.GetAllBackLogItemsAsync());
+            var items = await _backlogUow.GetAllBackLogItemsAsync();
+            items.ForEach(x => x.Status = x.Status.Replace(' ', '-'));
+            return View(items);
         }
 
         // GET: BackLogItem/Details/5
@@ -53,7 +58,7 @@ namespace IdeasTracker.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
 
         //[ValidateAntiForgeryToken]
         //[Authorize] 
@@ -70,7 +75,7 @@ namespace IdeasTracker.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditIdea([Bind("Id,ProductOwner,BootcampAssigned,SolutionDescription, Status, Links")] BacklogModel backLogModel)
         {
             if (ModelState.IsValid)
@@ -98,7 +103,7 @@ namespace IdeasTracker.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Artist,Venue,ShowDate")] BacklogModel backLogModel)
         {
             if (ModelState.IsValid)
@@ -140,13 +145,19 @@ namespace IdeasTracker.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Adopt([Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backlogModel) 
+        public async Task<IActionResult> Adopt([Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backlogModel)
         {
+            List<System.Security.Claims.Claim> userClaims = HttpContext.User.Claims.ToList();
+            string userEmail = userClaims[2].Value;
+
+            MailSenderFeature.SendEmail("emailsendingtestaddress@gmail.com", "There has been a new request to adopt an idea.", "Adoption Request"); //email to club tensing
+            MailSenderFeature.SendEmail(userEmail, "Thank you, your adoption request has been submitted.", "Adoption Request"); //email to adopter
+
             if (ModelState.IsValid)
             {
                 try
                 { 
-                    backlogModel.Status = IdeaStatuses.AdoptionRequested;
+                    backlogModel.Status = IdeaStatuses.AdoptionRequest;
                     await _backlogUow.AdoptIdeaAsync(backlogModel);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -181,12 +192,13 @@ namespace IdeasTracker.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _backlogUow.DeleteBackLogItem(id);
             return RedirectToAction(nameof(Index));
-        } 
+        }
+
         
     }
 }
