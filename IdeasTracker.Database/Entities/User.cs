@@ -1,5 +1,5 @@
 ﻿using System;
-namespace IdeasTracker.Models
+namespace IdeasTracker.Database.Entities
 {
     public class User
     {

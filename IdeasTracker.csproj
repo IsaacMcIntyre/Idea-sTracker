@@ -31,8 +31,6 @@
     <Folder Include="Attributes\" />
     <Folder Include="IdeasTracker.Entities\" />
     <Folder Include="Views\Role\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="Views\Backlog\Create.cshtml" />
+    <Folder Include="Constants\" />
   </ItemGroup>
 </Project>

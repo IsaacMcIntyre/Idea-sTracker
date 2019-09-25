@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IdeasTracker.Business.Enums;
+﻿using System.Threading.Tasks;
 using IdeasTracker.Business.Uows.Interfaces;
-using IdeasTracker.Data;
+using IdeasTracker.Constants;
 using IdeasTracker.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,30 +11,17 @@ namespace IdeasTracker.Controllers
 {
     [Authorize(Roles = Roles.ClubTenzing)]
     public class RoleController : Controller
-    {
-        private readonly ApplicationDbContext _context;
-        private readonly IRoleUow _roleUow;
+    { 
+        private readonly IUserUow _userUow;
 
-        public RoleController(ApplicationDbContext context, IRoleUow roleUow)
-        {
-            _context = context;
-            _roleUow = roleUow;
+        public RoleController(IUserUow userUow)
+        { 
+            _userUow = userUow;
         }
 
         public async Task<IActionResult> Index()
         {
-            var users = new List<UserModel>();
-            await _context.Users.ForEachAsync(user =>
-            {
-                users.Add(new UserModel
-                {
-                    Email = user.Email,
-                    Id = user.Id,
-                    Name = user.Name,
-                    Role = user.Role
-                });
-            });
-            return View(users);
+            return View(await _userUow.GetUsersAsync());
         } 
         public IActionResult Create()
         {
@@ -50,13 +33,7 @@ namespace IdeasTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(new User
-                {
-                    Email = userModel.Email,
-                    Name = userModel.Name,
-                    Role = userModel.Role
-                });
-                await _context.SaveChangesAsync();
+                await _userUow.CreateUserAsync(userModel);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -69,19 +46,13 @@ namespace IdeasTracker.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
+            var user = await _userUow.GetUserAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            return View(new UserModel
-            {
-                Id = user.Id,
-                Email = user.Email,
-                Name = user.Name,
-                Role = user.Role
-            });
+            return View(user);
         }
 
         // POST: BackLogItem/Delete/5
@@ -89,9 +60,7 @@ namespace IdeasTracker.Controllers
         [ValidateAntiForgeryToken] 
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+            await _userUow.DeleteUserAsync(id);
             return RedirectToAction(nameof(Index));
         }
     }
