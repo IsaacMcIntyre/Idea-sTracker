@@ -2,8 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 namespace IdeasTracker.Models
 {
+   
     public class BacklogModel
 	{
+
         [Display(Name = "ID")]
 		public int Id { get; set; }
 
@@ -36,10 +38,10 @@ namespace IdeasTracker.Models
 		public String AdoptedBy { get; set; }
 
 		[Display(Name = "What value can you add?")]
-		public String AdoptionValue { get; set; }
+		public string AdoptionValue { get; set; }
 
 		[Display(Name = "Adoption Reason")]
 		public String AdoptionReason { get; set; }
-
+         
 	}
 }

@@ -5,6 +5,8 @@ using IdeasTracker.Models;
 using Microsoft.AspNetCore.Authorization;
 using IdeasTracker.Email;
 using IdeasTracker.Business.Uows.Interfaces;
+using System.Text;
+using Newtonsoft.Json.Linq;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
@@ -22,7 +24,7 @@ namespace IdeasTracker.Controllers
             _backlogUow = backlogUow;
         }
 
-        [Authorize] 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
 
@@ -58,7 +60,7 @@ namespace IdeasTracker.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
 
         //[ValidateAntiForgeryToken]
         //[Authorize] 
@@ -75,7 +77,7 @@ namespace IdeasTracker.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditIdea([Bind("Id,ProductOwner,BootcampAssigned,SolutionDescription, Status, Links")] BacklogModel backLogModel)
         {
             if (ModelState.IsValid)
@@ -103,7 +105,7 @@ namespace IdeasTracker.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Artist,Venue,ShowDate")] BacklogModel backLogModel)
         {
             if (ModelState.IsValid)
@@ -145,7 +147,7 @@ namespace IdeasTracker.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Adopt([Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backlogModel) 
+        public async Task<IActionResult> Adopt([Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backlogModel)
         {
             List<System.Security.Claims.Claim> userClaims = HttpContext.User.Claims.ToList();
             string userEmail = userClaims[2].Value;
@@ -192,12 +194,13 @@ namespace IdeasTracker.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _backlogUow.DeleteBackLogItem(id);
             return RedirectToAction(nameof(Index));
-        } 
+        }
+
         
     }
 }
