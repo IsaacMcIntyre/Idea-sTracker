@@ -10,5 +10,7 @@ namespace IdeasTracker.Business.Uows.Interfaces
         Task CreateUserAsync(UserModel userModel);
         Task<UserModel> GetUserAsync(int? id);
         Task DeleteUserAsync(int? id);
+        Task EditUserAsync(UserModel userModel);
+        Task<bool> IsUserExistsAsync(int id);
     }
 }

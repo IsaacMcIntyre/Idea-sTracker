@@ -4,6 +4,7 @@ using IdeasTracker.Constants;
 using IdeasTracker.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -62,6 +63,47 @@ namespace IdeasTracker.Controllers
         {
             await _userUow.DeleteUserAsync(id);
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userUow.GetUserAsync(id); 
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Role")] UserModel userModel)
+        {
+            if (ModelState.IsValid)
+            { 
+                if (id != userModel.Id)
+                {
+                    return NotFound();
+                }
+                try
+                {
+                    await _userUow.EditUserAsync(userModel);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!await _userUow.IsUserExistsAsync(userModel.Id))
+                    {
+                        return NotFound();
+                    }
+                    throw;
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(userModel);
         }
     }
 }
