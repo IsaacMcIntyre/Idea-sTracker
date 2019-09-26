@@ -169,6 +169,53 @@ namespace IdeasTracker.Controllers
             return View(backlogModel);
         }
 
+
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> AdoptAccept(int Id, [Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backlogModel)
+        {
+
+            if (ModelState.IsValid)
+            {
+                if (Id != backlogModel.Id)
+                {
+                    return NotFound();
+                }
+
+                try
+                {
+                   await _backlogUow.AcceptAdoption(backlogModel);
+
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!await _backlogUow.IsBackLogItemExistsAsync(backlogModel.Id))
+                    {
+                        return NotFound();
+                    }
+                    throw;
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            return Redirect("/Backlog");
+        }
+
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Authorize]
+        //public async Task<IActionResult> AdoptReject([Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backlogModel)
+        //{
+
+
+
+        //}
+
+
+
         // POST: BacklogItem/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.

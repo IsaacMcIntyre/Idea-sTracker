@@ -98,7 +98,16 @@
                     <span asp-validation-for="AdoptionReason" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Adopt" class="btn btn-primary" />
+                    @if (User.IsInRole(IdeasTracker.Constants.Roles.ClubTenzing))
+                    {
+                       <input type="submit" value="Accept" class="btn btn-primary" asp-route-id="@Model.Id" asp-action="AdoptAccept" />
+                       <input type="submit" value="Reject" class="btn btn-primary" asp-route-id="@Model.Id" asp-action="AdoptReject" />
+
+                    }else{
+
+                        <input type="submit" value="Adopt" class="btn btn-primary" />
+
+                    }
                 </div>
             </form>
         </div>

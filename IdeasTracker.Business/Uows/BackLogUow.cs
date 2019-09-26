@@ -89,6 +89,19 @@ namespace IdeasTracker.Business.Uows
 
         }
 
+
+        public async Task AcceptAdoption(BacklogModel backlogModel)
+        {
+            var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == backlogModel.Id);
+
+            backlogItem.Status = IdeaStatuses.Adopted;
+
+            _context.Update(backlogItem);
+            await _context.SaveChangesAsync();
+
+        }
+
+
         public async Task CreateBackLogItemAsync(CreateIdeaModel createIdeaModel)
         {
             _context.Add(new BackLog
