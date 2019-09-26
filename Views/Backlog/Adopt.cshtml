@@ -108,12 +108,12 @@
                 <div class="form-group"> 
                     @if (User.IsInRole(IdeasTracker.Constants.Roles.ClubTenzing))
                     {
-                       <input type="submit" value="Accept" class="btn btn-primary" asp-route-id="@Model.Id" asp-action="AdoptAccept" />
-                       <input type="submit" value="Reject" class="btn btn-primary" asp-route-id="@Model.Id" asp-action="AdoptReject" />
+                       <button type="submit" value="Accept" class="btn AND-button" asp-route-id="@Model.Id" asp-action="AdoptAccept"><i class="fas fa-check"></i> Accept</button>
+                       <button type="submit" value="Reject" class="btn AND-button" asp-route-id="@Model.Id" asp-action="AdoptReject"><i class="fas fa-times"></i> Reject</button>
 
                     }else{
 
-                        <input type="submit" value="Adopt" asp-route-id="@Model.Id" class="btn btn-primary" />
+                        <button type="submit" value="Adopt" asp-route-id="@Model.Id" class="btn AND-button"><i class="far fa-handshake"></i> Adopt</button>
 
                     }
                 </div>
