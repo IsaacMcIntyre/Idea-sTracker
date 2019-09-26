@@ -22,7 +22,8 @@ namespace IdeasTracker.Business.Converters
                 ProductOwner = entity.ProductOwner,
                 RaisedBy = entity.RaisedBy,
                 SolutionDescription = entity.SolutionDescription,
-                Status = entity.Status
+                Status = entity.Status,
+                AdoptionEmailAddress = entity.AdoptionEmailAddress
             };
 		}
 	}
