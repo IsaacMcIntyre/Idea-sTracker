@@ -90,6 +90,34 @@ namespace IdeasTracker.Business.Uows
 
         }
 
+
+        public async Task AcceptAdoption(BacklogModel backlogModel)
+        {
+            var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == backlogModel.Id);
+
+            backlogItem.Status = IdeaStatuses.Adopted;
+            backlogItem.AdoptedBy = backlogModel.AdoptedBy;
+            backlogItem.AdoptionValue = backlogModel.AdoptionReason;
+            backlogItem.AdoptionReason = backlogModel.AdoptionReason;
+            _context.Update(backlogItem);
+            await _context.SaveChangesAsync();
+
+        }
+
+        public async Task RejectAdoption(BacklogModel backlogModel)
+        {
+            var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == backlogModel.Id);
+
+            backlogItem.Status = IdeaStatuses.ProjectAdoptable;
+            backlogItem.AdoptedBy = string.Empty;
+            backlogItem.AdoptionValue = string.Empty;
+            backlogItem.AdoptionReason = string.Empty;
+            _context.Update(backlogItem);
+            await _context.SaveChangesAsync();
+
+        }
+
+
         public async Task CreateBackLogItemAsync(CreateIdeaModel createIdeaModel)
         {
             _context.Add(new BackLog
@@ -111,6 +139,7 @@ namespace IdeasTracker.Business.Uows
                 backlogiem.AdoptionValue = backlogModel.AdoptionValue;
                 backlogiem.AdoptionReason = backlogModel.AdoptionReason;
                 backlogiem.AdoptionEmailAddress = userEmail;
+                backlogiem.Status = backlogModel.Status;
                 _context.Update(backlogiem);
                 await _context.SaveChangesAsync();
                 //TODO: Send Email

@@ -36,7 +36,4 @@
   <ItemGroup>
     <None Remove="IdeasTracker.db.sqbpro" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Remove="IdeasTracker.Business\obj\project.assets.json" />
-  </ItemGroup>
 </Project>
