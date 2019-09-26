@@ -165,6 +165,7 @@ img.big-image-logo {
     padding: 1em 1em;
     border: 1px solid #f3f3f3;
     width: 100%;
+    word-wrap:break-word;
 }
 
 .product-info p {
@@ -175,6 +176,7 @@ img.big-image-logo {
     margin-top: 1em;
     font-weight: 700;
 }
+
 .buttons {
     margin-bottom: 1em;
 }
@@ -183,6 +185,7 @@ img.big-image-logo {
     margin-left: -15px;
     margin-top: 2em;
 } /*fix*/
+
 #create h1 {
     margin-left: 15px;
     text-align: center;
@@ -191,14 +194,14 @@ img.big-image-logo {
 }
 
 .product-info span {
-       color: gray;
+    color: gray;
 }
 
-     h1 {
-        margin-left: 15px;
-        text-align: center;
-        margin-bottom: 0.75em;
-    }
+h1 {
+    margin-left: 15px;
+    text-align: center;
+    margin-bottom: 0.75em;
+}
 
 select#status {
     background: #f2f2f2;
@@ -275,7 +278,7 @@ select#status {
 /* AND Button */
 
 .AND-btn-create {
-font-size: 1.1em;
+    font-size: 1.1em;
     margin-left: 0em;
     line-height: 1em;
     background: #8BC34A;
@@ -294,8 +297,8 @@ font-size: 1.1em;
 }
 
 a.AND-btn-create:hover {
-        background: #70a533 !important;
-        color: #fff;
+    background: #70a533 !important;
+    color: #fff;
 }
 
 a.AND-button {
@@ -317,7 +320,7 @@ a.AND-button:hover {
 /**/
 .table thead th {
     background: #f3f3f3;
-    font-size: 12px;
+    font-size: 11px;
     word-wrap:break-word;
 }
 
@@ -348,6 +351,45 @@ a.AND-button:hover {
     border: 1px solid #f3f3f3;
     width: 100%;
 }
+
+#adoptForm label {
+    font-size: 16px;
+    font-family: Poppins, sans-serif;
+}
+
+#adoptForm input[type="text"]  {
+    background: #f2f2f2;
+    padding: 1em 1em;
+    border: 1px solid #f3f3f3;
+    width: 100%;
+    color: #000;
+    margin-top: 0.5em;
+    height: 58px;
+}
+
+#adoptForm textarea {
+    background: #f2f2f2;
+    padding: 1em 1em;
+    border: 1px solid #f3f3f3;
+    width: 100%;
+    margin-top: .5em;
+}
+
+h1.details-header span {
+    color: gray;
+}
+
+#adoptForm button.btn.AND-button {
+    background: #ff323b;
+    color: #fff;
+    width: 100%;
+    padding: 0.75em 0em;
+    margin-top: 0.75em;
+}
+
+#adoptForm button.btn.AND-button:hover {
+    background: #d00f18;
+} 
 
 .EditIdeaFormTitle p {
     font-size: 12px;
@@ -396,7 +438,7 @@ color: #ff323b;
 }
 
 .Adoption-Request {
-    color: #feff00;
+    color: #acad05;
 
 }
 
@@ -447,6 +489,10 @@ color: #ff323b;
 
 .details-buttons {
     margin-left: -15px;
+}
+
+.details-btn-group a.btn.btn-light {
+    width: 100%;
 }
 
 /* Animations */

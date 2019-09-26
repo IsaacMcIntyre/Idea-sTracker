@@ -5,11 +5,17 @@
 }
 
 @section scripts{
-<script>$('#image').css('background-image', 'url(https://i.imgur.com/Msz7n6a.png)');
+<script>$('#image').css({
+    'background-image': 'url(https://files.slack.com/files-pri/TJ4RNAEKF-FNQ39JR0C/20190925_130130.jpg)',
+    'background-size' : '100%',
+    'background-position-y' : '53%',
+    });
     $("#image-text").text("Let\'s see what our ANDis have been up to!");
     $(window).scroll(function () {
         $(".hero-image").children().css("opacity", 1 - $(window).scrollTop() / 250);
-    });</script>
+    });
+
+    </script>   
 }
 
 <div class="row top-table-imgs">
@@ -120,7 +126,7 @@
                     }
                   
                   @if (item.Status == IdeasTracker.Constants.IdeaStatuses.ProjectAdoptable){ 
-                        <a asp-action="Adopt" asp-route-id="@item.Id" class="btn AND-button"><i class="far fa-handshake"></i> Adopt</a>
+                        <a asp-action="Adopt" asp-route-id="@item.Id" class="btn AND-button mt-1"><i class="far fa-handshake"></i> Adopt</a>
                     }
                   @if (item.Status == IdeasTracker.Constants.IdeaStatuses.AdoptionRequest && User.IsInRole(IdeasTracker.Constants.Roles.ClubTenzing))
                   {
