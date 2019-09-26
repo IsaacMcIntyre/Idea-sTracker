@@ -101,7 +101,7 @@ namespace IdeasTracker.Business.Uows
             backlogItem.AdoptionReason = backlogModel.AdoptionReason;
             _context.Update(backlogItem);
             await _context.SaveChangesAsync();
-
+            _emailSender.SendAdoptionAcceptanceEmail(backlogItem.AdoptionEmailAddress);
         }
 
         public async Task RejectAdoption(BacklogModel backlogModel)
@@ -114,7 +114,7 @@ namespace IdeasTracker.Business.Uows
             backlogItem.AdoptionReason = string.Empty;
             _context.Update(backlogItem);
             await _context.SaveChangesAsync();
-
+            _emailSender.SendAdoptionRejectionEmail(backlogItem.AdoptionEmailAddress);
         }
 
 
