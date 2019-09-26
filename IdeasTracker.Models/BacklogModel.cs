@@ -13,15 +13,17 @@ namespace IdeasTracker.Models
 		public string RaisedBy { get; set; }
 
 		[Display(Name = "Customer Problem")]
-		public string CustomerProblem { get; set; }
+        [Required]
+        public string CustomerProblem { get; set; }
 
 		[Display(Name = "Problem Description")]
-		public string ProblemDescription { get; set; }
+        [Required]
+        public string ProblemDescription { get; set; }
 
 		[Display(Name = "Product Owner")]
 		public string ProductOwner { get; set; }
-         
-		public string Status { get; set; }
+        [Required]
+        public string Status { get; set; }
         public string StatusClass { get { return Status.Replace(' ', '-'); } }
 
         [Display(Name = "Bootcamp Assigned")]

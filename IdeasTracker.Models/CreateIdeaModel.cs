@@ -7,8 +7,10 @@ namespace IdeasTracker.Models
         [Display(Name = "Raised By")]
         public string RaisedBy { get; set; }
         [Display(Name = "Customer Problem")]
+        [Required]
         public string CustomerProblem { get; set; }
         [Display(Name = "Problem Description")]
+        [Required]
         public string ProblemDescription { get; set; } 
     }
 }
