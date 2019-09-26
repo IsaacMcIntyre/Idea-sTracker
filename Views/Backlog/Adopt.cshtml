@@ -79,7 +79,7 @@
 
         </div> <!-- lg 4 -->
 
-        <div class="col-lg-4">
+        <div class="col-lg-4" id="adoptForm">
             <form asp-action="Adopt">
                 @Html.HiddenFor(model=>model.Id)
                 @Html.HiddenFor(model=>model.ProblemDescription)
@@ -105,7 +105,7 @@
                     <textarea asp-for="AdoptionReason" class="form-control" rows="5" cols="50"></textarea>
                     <span asp-validation-for="AdoptionReason" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group"> 
                     @if (User.IsInRole(IdeasTracker.Constants.Roles.ClubTenzing))
                     {
                        <input type="submit" value="Accept" class="btn btn-primary" asp-route-id="@Model.Id" asp-action="AdoptAccept" />
@@ -122,7 +122,3 @@
 
 </div>
 
-<form asp-action="Delete">
-    <input type="hidden" asp-for="Id" />
-    <a asp-action="Index">Back to List</a>
-</form>
