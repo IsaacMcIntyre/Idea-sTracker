@@ -1,4 +1,4 @@
-@model IdeasTracker.Models.BacklogModel
+@model IdeasTracker.Models.AdoptRequestModel
 
 @{
     ViewData["Title"] = "Adopt";
@@ -85,6 +85,10 @@
                 @Html.HiddenFor(model=>model.ProblemDescription)
                 @Html.HiddenFor(model=>model.CustomerProblem)
                 @Html.HiddenFor(model=>model.Status)
+                @Html.HiddenFor(model=>model.ProductOwner)
+                @Html.HiddenFor(model=>model.Links)
+                @Html.HiddenFor(model=>model.BootcampAssigned)
+                @Html.HiddenFor(model=>model.SolutionDescription)
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="AdoptedBy" class="control-label"></label>
@@ -101,8 +105,7 @@
                     <textarea asp-for="AdoptionReason" class="form-control" rows="5" cols="50"></textarea>
                     <span asp-validation-for="AdoptionReason" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-
+                <div class="form-group"> 
                     @if (User.IsInRole(IdeasTracker.Constants.Roles.ClubTenzing))
                     {
                        <input type="submit" value="Accept" class="btn btn-primary" asp-route-id="@Model.Id" asp-action="AdoptAccept" />

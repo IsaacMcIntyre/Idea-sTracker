@@ -121,31 +121,31 @@ namespace IdeasTracker.Controllers
         [Authorize]
         public async Task<IActionResult> Adopt(int? id)
         {
-            var backLogItem = await _backlogUow.GetBackLogItemAsync(id);
-            if (backLogItem == null)
+            var adoptableItem = await _backlogUow.GetBackLogAdoptableItem(id);
+            if (adoptableItem == null)
             {
                 return NotFound();
             }
-            return View(backLogItem);
+            return View(adoptableItem);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Adopt([Bind("Id,  CustomerProblem,ProblemDescription,Status,AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backlogModel)
+        public async Task<IActionResult> Adopt([Bind("Id, CustomerProblem,ProblemDescription,Status,ProductOwner,Links,BootcampAssigned,SolutionDescription,AdoptedBy, AdoptionValue, AdoptionReason")] AdoptRequestModel adoptRequestModel)
         {
             if (ModelState.IsValid)
             {
                 try
-                { 
-                    backlogModel.Status = IdeaStatuses.AdoptionRequest;
+                {
+                    adoptRequestModel.Status = IdeaStatuses.AdoptionRequest;
                     string userEmail = HttpContext.User.Claims.ToList()[2].Value;
-                    await _backlogUow.AdoptIdeaAsync(backlogModel, userEmail);
+                    await _backlogUow.AdoptIdeaAsync(adoptRequestModel, userEmail);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await _backlogUow.IsBackLogItemExistsAsync(backlogModel.Id))
+                    if (!await _backlogUow.IsBackLogItemExistsAsync(adoptRequestModel.Id))
                     {
                         return NotFound();
                     }
@@ -153,7 +153,7 @@ namespace IdeasTracker.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(backlogModel);
+            return View(adoptRequestModel);
         }
 
 
@@ -161,23 +161,23 @@ namespace IdeasTracker.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> AdoptAccept(int Id, [Bind("Id, CustomerProblem,ProblemDescription,Status, StatusClass,AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backlogModel)
+        public async Task<IActionResult> AdoptAccept(int Id, [Bind("Id, CustomerProblem,ProblemDescription,Status,ProductOwner,Links,BootcampAssigned,SolutionDescription,AdoptedBy, AdoptionValue, AdoptionReason")] AdoptRequestModel adoptRequestModel)
         { 
             if (ModelState.IsValid)
             {
-                if (Id != backlogModel.Id)
+                if (Id != adoptRequestModel.Id)
                 {
                     return NotFound();
                 }
 
                 try
                 {
-                   await _backlogUow.AcceptAdoption(backlogModel);
+                   await _backlogUow.AcceptAdoption(adoptRequestModel);
 
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await _backlogUow.IsBackLogItemExistsAsync(backlogModel.Id))
+                    if (!await _backlogUow.IsBackLogItemExistsAsync(adoptRequestModel.Id))
                     {
                         return NotFound();
                     }
@@ -186,29 +186,29 @@ namespace IdeasTracker.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return Redirect("/Backlog");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> AdoptReject(int Id, [Bind("Id, CustomerProblem,ProblemDescription,Status, StatusClass,AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backlogModel)
+        public async Task<IActionResult> AdoptReject(int Id, [Bind("Id, CustomerProblem,ProblemDescription,Status,ProductOwner,Links,BootcampAssigned,SolutionDescription,AdoptedBy, AdoptionValue, AdoptionReason")] AdoptRequestModel adoptRequestModel)
         {
             if (ModelState.IsValid)
             {
-                if (Id != backlogModel.Id)
+                if (Id != adoptRequestModel.Id)
                 {
                     return NotFound();
                 }
 
                 try
                 {
-                    await _backlogUow.RejectAdoption(backlogModel);
+                    await _backlogUow.RejectAdoption(adoptRequestModel);
 
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await _backlogUow.IsBackLogItemExistsAsync(backlogModel.Id))
+                    if (!await _backlogUow.IsBackLogItemExistsAsync(adoptRequestModel.Id))
                     {
                         return NotFound();
                     }
@@ -217,7 +217,7 @@ namespace IdeasTracker.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return Redirect("/Backlog");
+            return RedirectToAction(nameof(Index));
         }
 
 
@@ -248,7 +248,7 @@ namespace IdeasTracker.Controllers
 
             await _backlogUow.DeleteBackLogItem(id);
 
-            return Redirect("/BackLog");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost, ActionName("Delete")]
@@ -264,75 +264,9 @@ namespace IdeasTracker.Controllers
         [Authorize]
         public async Task<IActionResult> Export()
         {
-
-            var backlogList = await _backlogUow.GetAllBackLogItemsAsync();
-            StringBuilder builder = new StringBuilder();
-            // var a = backlogList.GetType().GetProperties().GetValue(0);
-
-            bool isFirstLine = true;
-
-            foreach (var backlogItem in backlogList)
-            {
-                bool isFirstCol = true;
-                JObject backlogProperties = JObject.FromObject(backlogItem);
-                if (isFirstLine)
-                {
-                    foreach (JProperty property in backlogProperties.Properties())
-                    {
-                        string value = property.Name;
-                        builder = ExportHelper(builder, value, isFirstCol);
-                        isFirstCol = false;
-                    }
-                    isFirstCol = true;
-                    isFirstLine = false;
-                    builder.Append(Environment.NewLine);
-                }
-
-
-                foreach (JProperty property in backlogProperties.Properties())
-                {
-                    string value = property.Value.ToString();
-
-                    builder = ExportHelper(builder, value, isFirstCol);
-
-                    isFirstCol = false;
-                }
-
-                builder.Append(Environment.NewLine);
-
-
-            }
-
-
-
-            var bytes = new UTF8Encoding().GetBytes(builder.ToString());
-            return File(bytes, "text/csv", DateTime.Now.ToString("dd/MM/yyyy") + "-ideas-backlog");
-        }
-
-
-
-        public StringBuilder ExportHelper(StringBuilder builder, string value, bool isFirstCol)
-        {
-
-            if (!isFirstCol)
-            {
-                builder.Append(",");
-            }
-
-            if (value.IndexOfAny(new char[] { '"', ',' }) != -1)
-            {
-                builder.AppendFormat("\"{0}\"", value.Replace("\"", "\"\""));
-
-            }
-            else
-            {
-                builder.Append(value);
-
-            }
-
-            return builder;
-        }
-
+            var exportItem = await _backlogUow.ExportBacklog();
+            return File(exportItem.Item1,"text/csv", exportItem.Item2);
+        } 
 
     }
 }

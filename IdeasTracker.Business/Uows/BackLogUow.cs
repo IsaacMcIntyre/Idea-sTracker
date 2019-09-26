@@ -11,6 +11,8 @@ using System;
 using System.Net.Mail;
 using System.Net;
 using IdeasTracker.Business.Email.Interfaces;
+using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace IdeasTracker.Business.Uows
 {
@@ -19,13 +21,15 @@ namespace IdeasTracker.Business.Uows
         private readonly ApplicationDbContext _context;
         private readonly IBacklogToBackLogModelConverter _backlogToBackLogModelConverter;
         private readonly IEmailSender _emailSender;
+        private readonly IBacklogToAdoptRequestModelConverter _backlogToAdoptRequestModelConverter;
 
 
-        public BackLogUow(ApplicationDbContext context, IBacklogToBackLogModelConverter backlogToBackLogModelConverter, IEmailSender emailSender)
+        public BackLogUow(ApplicationDbContext context, IBacklogToBackLogModelConverter backlogToBackLogModelConverter, IEmailSender emailSender, IBacklogToAdoptRequestModelConverter backlogToAdoptRequestModelConverter)
         {
             _context = context;
             _backlogToBackLogModelConverter = backlogToBackLogModelConverter;
             _emailSender = emailSender;
+            _backlogToAdoptRequestModelConverter = backlogToAdoptRequestModelConverter;
         }
 
         public async Task<List<BacklogModel>> GetAllBackLogItemsAsync()
@@ -40,6 +44,11 @@ namespace IdeasTracker.Business.Uows
         {
             var backLogItem = await _context.BackLogs.FirstOrDefaultAsync(m => m.Id == id);
             return _backlogToBackLogModelConverter.Convert(backLogItem);
+        }
+        public async Task<AdoptRequestModel> GetBackLogAdoptableItem(int? id)
+        {
+            var backLogItem = await _context.BackLogs.FirstOrDefaultAsync(m => m.Id == id);
+            return _backlogToAdoptRequestModelConverter.Convert(backLogItem);
         }
 
         public async Task EditBackLogItemAsync(BacklogModel backlogModel)
@@ -91,22 +100,22 @@ namespace IdeasTracker.Business.Uows
         }
 
 
-        public async Task AcceptAdoption(BacklogModel backlogModel)
+        public async Task AcceptAdoption(AdoptRequestModel adoptRequestModel)
         {
-            var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == backlogModel.Id);
+            var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == adoptRequestModel.Id);
 
             backlogItem.Status = IdeaStatuses.Adopted;
-            backlogItem.AdoptedBy = backlogModel.AdoptedBy;
-            backlogItem.AdoptionValue = backlogModel.AdoptionReason;
-            backlogItem.AdoptionReason = backlogModel.AdoptionReason;
+            backlogItem.AdoptedBy = adoptRequestModel.AdoptedBy;
+            backlogItem.AdoptionValue = adoptRequestModel.AdoptionReason;
+            backlogItem.AdoptionReason = adoptRequestModel.AdoptionReason;
             _context.Update(backlogItem);
             await _context.SaveChangesAsync();
             _emailSender.SendAdoptionAcceptanceEmail(backlogItem.AdoptionEmailAddress);
         }
 
-        public async Task RejectAdoption(BacklogModel backlogModel)
+        public async Task RejectAdoption(AdoptRequestModel adoptRequestModel)
         {
-            var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == backlogModel.Id);
+            var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == adoptRequestModel.Id);
 
             backlogItem.Status = IdeaStatuses.ProjectAdoptable;
             backlogItem.AdoptedBy = string.Empty;
@@ -130,19 +139,18 @@ namespace IdeasTracker.Business.Uows
             await _context.SaveChangesAsync();
         }
 
-        public async Task AdoptIdeaAsync(BacklogModel backlogModel, string userEmail)
+        public async Task AdoptIdeaAsync(AdoptRequestModel adoptRequestModel, string userEmail)
         { 
-            var backlogiem = await _context.BackLogs.FirstAsync(x => x.Id == backlogModel.Id);
+            var backlogiem = await _context.BackLogs.FirstAsync(x => x.Id == adoptRequestModel.Id);
             if (backlogiem != null)
             {
-                backlogiem.AdoptedBy = backlogModel.AdoptedBy;
-                backlogiem.AdoptionValue = backlogModel.AdoptionValue;
-                backlogiem.AdoptionReason = backlogModel.AdoptionReason;
+                backlogiem.AdoptedBy = adoptRequestModel.AdoptedBy;
+                backlogiem.AdoptionValue = adoptRequestModel.AdoptionValue;
+                backlogiem.AdoptionReason = adoptRequestModel.AdoptionReason;
                 backlogiem.AdoptionEmailAddress = userEmail;
-                backlogiem.Status = backlogModel.Status;
+                backlogiem.Status = adoptRequestModel.Status;
                 _context.Update(backlogiem);
-                await _context.SaveChangesAsync();
-                //TODO: Send Email
+                await _context.SaveChangesAsync(); 
                 _emailSender.SendAdoptionEmail(userEmail);
             }
         }
@@ -156,10 +164,73 @@ namespace IdeasTracker.Business.Uows
                 await _context.SaveChangesAsync();
             }            
         }
+        public async Task<(byte[],string)> ExportBacklog()
+        {
+            var backlogList = await GetAllBackLogItemsAsync();
+            StringBuilder builder = new StringBuilder();
 
+            bool isFirstLine = true;
+
+            foreach (var backlogItem in backlogList)
+            {
+                bool isFirstCol = true;
+                JObject backlogProperties = JObject.FromObject(backlogItem);
+                if (isFirstLine)
+                {
+                    foreach (JProperty property in backlogProperties.Properties())
+                    {
+                        string value = property.Name;
+                        builder = ExportHelper(builder, value, isFirstCol);
+                        isFirstCol = false;
+                    }
+                    isFirstCol = true;
+                    isFirstLine = false;
+                    builder.Append(Environment.NewLine);
+                }
+
+
+                foreach (JProperty property in backlogProperties.Properties())
+                {
+                    string value = property.Value.ToString();
+
+                    builder = ExportHelper(builder, value, isFirstCol);
+
+                    isFirstCol = false;
+                }
+
+                builder.Append(Environment.NewLine); 
+
+            } 
+            var bytes = new UTF8Encoding().GetBytes(builder.ToString());
+            return (bytes,$"{DateTime.Now.ToString("dd-MM-yyyy")}-ideas-backlog");
+        }
+        
         public async Task<bool> IsBackLogItemExistsAsync(int id)
         {
             return await _context.BackLogs.AnyAsync(e => e.Id == id);
         }
+        #region Private Methods
+        private StringBuilder ExportHelper(StringBuilder builder, string value, bool isFirstCol)
+        {
+
+            if (!isFirstCol)
+            {
+                builder.Append(",");
+            }
+
+            if (value.IndexOfAny(new char[] { '"', ',' }) != -1)
+            {
+                builder.AppendFormat("\"{0}\"", value.Replace("\"", "\"\""));
+
+            }
+            else
+            {
+                builder.Append(value);
+
+            }
+
+            return builder;
+        } 
+        #endregion
     }
 }
