@@ -33,4 +33,7 @@
     <Folder Include="Views\Role\" />
     <Folder Include="Constants\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="IdeasTracker.db.sqbpro" />
+  </ItemGroup>
 </Project>

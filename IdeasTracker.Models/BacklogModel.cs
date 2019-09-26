@@ -22,8 +22,9 @@ namespace IdeasTracker.Models
 		public string ProductOwner { get; set; }
          
 		public string Status { get; set; }
+        public string StatusClass { get { return Status.Replace(' ', '-'); } }
 
-		[Display(Name = "Bootcamp Assigned")]
+        [Display(Name = "Bootcamp Assigned")]
 		public string BootcampAssigned { get; set; }
 
 		[Display(Name = "Solution Description")]

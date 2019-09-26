@@ -58,5 +58,20 @@ namespace IdeasTracker.Business.Uow
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }
+
+        public async Task EditUserAsync(UserModel userModel)
+        {
+            var user = await _context.Users.FirstAsync(x => x.Id == userModel.Id);
+            if (user != null)
+            {
+                user.Email = user.Email;
+                user.Role = user.Role;
+                user.Name = user.Name;
+                _context.Update(user);
+                await _context.SaveChangesAsync(); 
+
+            }
+        }
+        public async Task<bool> IsUserExistsAsync(int id) => await _context.Users.AnyAsync(e => e.Id == id);
     }
 }
