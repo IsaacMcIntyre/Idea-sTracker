@@ -456,3 +456,31 @@ select#Role {
     width: 100%;
     height: 38px;
 }
+
+p.role-delete-mini-header {
+    font-weight: 700;
+    margin-top: 1.2em;
+    font-size: 1.2em;
+}
+
+#RoleDelete button.btn.AND-button {
+    background: #ff323b;
+    color: #fff;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    width: 50%;
+}
+
+#RoleDelete a.btn.AND-button {
+    width: 49%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+#RoleDelete button.btn.AND-button:hover {
+    background: #d00f18;
+}
