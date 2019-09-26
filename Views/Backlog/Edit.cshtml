@@ -53,6 +53,7 @@
                     </div>
                 </p>
                 <p>Status</p>
+
                 <select asp-for="Status" id="status"> 
                     <option value="@(IdeasTracker.Constants.IdeaStatuses.IdeaPending)">Idea Pending</option>
                     <option value="@(IdeasTracker.Constants.IdeaStatuses.IdeaAccepted)">Idea Accepted</option>
@@ -62,6 +63,7 @@
                     <option value="@(IdeasTracker.Constants.IdeaStatuses.ProjectAdoptable)">Project Adoptable</option>
                     <option value="@(IdeasTracker.Constants.IdeaStatuses.AdoptionRequest)">Adoption Request</option>
                     <option value="@(IdeasTracker.Constants.IdeaStatuses.Adopted)">Adopted</option> 
+
                 </select>
 
 
