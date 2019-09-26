@@ -27,10 +27,11 @@
 
     <h1>Editing <span>@Model.CustomerProblem</span></h1>
 
-    <form asp-action="EditIdea" value="@Model.Id">
+    <form asp-action="Edit" value="@Model.Id">
         <div class="row">
             <div class="col-sm-6">
-
+            @Html.HiddenFor(model => model.ProblemDescription)
+            @Html.HiddenFor(model => model.CustomerProblem)
                 <p>
                     @Html.DisplayNameFor(model => model.Id)
                     <div class="text-display">

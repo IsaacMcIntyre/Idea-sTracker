@@ -73,20 +73,7 @@ namespace IdeasTracker.Controllers
             }
             return View(createIdeaModel);
         }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditIdea([Bind("Id,ProductOwner,BootcampAssigned,SolutionDescription, Status, Links")] BacklogModel backLogModel)
-        {
-            if (ModelState.IsValid)
-            {
-                await _backlogUow.EditBackLogItemAsync(backLogModel);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(backLogModel);
-        }
-
+          
         // GET: BackLogItem/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -105,8 +92,8 @@ namespace IdeasTracker.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Artist,Venue,ShowDate")] BacklogModel backLogModel)
-        {
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CustomerProblem,ProblemDescription,ProductOwner,Status,BootcampAssigned,SolutionDescription,Links,AdoptionEmailAddress")] BacklogModel backLogModel)
+        { 
             if (ModelState.IsValid)
             {
                 backLogModel.RaisedBy = User.Identity.Name;
