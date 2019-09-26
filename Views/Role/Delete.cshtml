@@ -24,24 +24,15 @@
      <h3>Are you sure you want to delete this?</h3>
          
         <p class="role-delete-mini-header">
-            @Html.DisplayNameFor(model => model.Name)
-        </p>
-        <p>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Name): <span>@Html.DisplayFor(model => model.Name)</span>
         </p>
         <p class="role-delete-mini-header">
-            @Html.DisplayNameFor(model => model.Email)
-        </p>
-        <p>
-            @Html.DisplayFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.Email): <span>@Html.DisplayFor(model => model.Email)</span>
         </p>
         <p class="role-delete-mini-header">
-            @Html.DisplayNameFor(model => model.Role)
+            @Html.DisplayNameFor(model => model.Role): <span>@Html.DisplayFor(model => model.Role)</span>
         </p>
-        <p>
-            @Html.DisplayFor(model => model.Role)
-        </p>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <button type="submit" class="btn AND-button"><i class="fas fa-trash-alt"></i> Delete</button>
