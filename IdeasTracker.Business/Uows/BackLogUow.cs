@@ -51,6 +51,7 @@ namespace IdeasTracker.Business.Uows
             backlogItem.BootcampAssigned = backlogModel.BootcampAssigned;
             backlogItem.SolutionDescription = backlogModel.SolutionDescription;
             backlogItem.Links = backlogModel.Links;
+            backlogItem.AdoptionEmailAddress = backlogModel.AdoptionEmailAddress;
 
 
             if (!string.IsNullOrWhiteSpace(backlogModel.ProductOwner) && string.IsNullOrWhiteSpace(backlogModel.BootcampAssigned))
@@ -122,6 +123,7 @@ namespace IdeasTracker.Business.Uows
                 backlogiem.AdoptedBy = backlogModel.AdoptedBy;
                 backlogiem.AdoptionValue = backlogModel.AdoptionValue;
                 backlogiem.AdoptionReason = backlogModel.AdoptionReason;
+                backlogiem.AdoptionEmailAddress = userEmail;
                 _context.Update(backlogiem);
                 await _context.SaveChangesAsync();
                 //TODO: Send Email

@@ -23,8 +23,7 @@
             }
         });</script>
 }
-<div class="product-info">
-<h1>Edit</h1>
+<div class="product-info"> 
 
     <h1>Editing <span>@Model.CustomerProblem</span></h1>
 
@@ -90,17 +89,17 @@
             </div>
         </div>
     </form>
-    <div class="col-lg-12" id="editButtons">
-
-        @if (User.Identity.IsAuthenticated && Model.RaisedBy == User.Identity.Name)
+    <div class="col-lg-12" id="editButtons"> 
+        @if (User.IsInRole(IdeasTracker.Constants.Roles.ClubTenzing))
         {
             <a class="btn AND-button" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-pencil-alt"></i> Edit</a>
             <a class="btn AND-button" asp-action="Delete" asp-route-id="@Model.Id"><i class="fas fa-trash-alt"></i> Delete</a>
-            @if (Model.Status == IdeasTracker.Constants.IdeaStatuses.ProjectAdoptable)
-            {
-                <a class="btn AND-button" asp-action="Adopt" asp-route-id="@Model.Id"><i class="far fa-handshake"></i> Adopt</a>
-            }
         }
+            
+        @if (Model.Status == IdeasTracker.Constants.IdeaStatuses.ProjectAdoptable)
+        {
+            <a class="btn AND-button" asp-action="Adopt" asp-route-id="@Model.Id"><i class="far fa-handshake"></i> Adopt</a>
+        } 
         <a asp-action="Index" class="btn AND-button"><i class="fas fa-arrow-left"></i> Back to List</a>
     </div>
 </div> 

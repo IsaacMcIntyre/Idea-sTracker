@@ -6,7 +6,7 @@
 
 
 @section scripts{
-<script>$('#image').css('background-image', 'url(https://i.imgur.com/nSxM77r.jpg)');
+<script>$('#image').css('background-image', 'url(https://i.imgur.com/mjZZeIB.jpg)');
     $("#image-text").text("Build week project Details")
     $(window).scroll(function () {
         $(".hero-image").children().css("opacity", 1 - $(window).scrollTop() / 250);
@@ -98,7 +98,7 @@
 
 </div> 
 <div class="details-buttons">
-     @if (User.Identity.IsAuthenticated && Model.RaisedBy == User.Identity.Name && Model.Status != IdeasTracker.Constants.IdeaStatuses.IdeaPending) 
+    @if (User.IsInRole(IdeasTracker.Constants.Roles.ClubTenzing))
     {
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn AND-button"><i class="fas fa-pencil-alt"></i> Edit</a>
         <a asp-action="Delete" asp-route-id="@Model.Id" class="btn AND-button"><i class="fas fa-trash-alt"></i> Delete</a>

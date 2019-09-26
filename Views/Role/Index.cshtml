@@ -9,7 +9,7 @@
     $("#image-text").text("Lets see what everyones role\'s are.");</script>
 }
  
-<div class="table-responsive">
+<div class="table-responsive" id="RoleIndex">
    <table class="table">
     
     <thead>
@@ -29,6 +29,9 @@
           <th>
 
         </th>
+          <th>
+       <a class="btn AND-btn-create" asp-action="Create"><i class="fas fa-user-plus"></i> Create New</a> 
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -46,14 +49,14 @@
           <td>
               @Html.DisplayFor(modelItem => item.Role)
           </td>
-          <td>
+          <td> 
+              <a asp-action="Edit" asp-route-id="@item.Id" class="btn AND-button"><i class="fas fa-pencil-alt"></i> Edit</a> 
+          </td>
+          <td> 
               <a asp-action="Delete" asp-route-id="@item.Id" class="btn AND-button"><i class="fas fa-trash-alt"></i> Delete</a> 
           </td>
       </tr>
       }
     </tbody>
 </table>
-   <p> 
-       <a class="btn AND-button" asp-action="Create"><i class="fas fa-user-plus"></i> Create New</a>
-   </p>
     </div>

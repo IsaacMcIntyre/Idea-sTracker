@@ -13,15 +13,17 @@ namespace IdeasTracker.Models
 		public string RaisedBy { get; set; }
 
 		[Display(Name = "Customer Problem")]
-		public string CustomerProblem { get; set; }
+        [Required]
+        public string CustomerProblem { get; set; }
 
 		[Display(Name = "Problem Description")]
-		public string ProblemDescription { get; set; }
+        [Required]
+        public string ProblemDescription { get; set; }
 
 		[Display(Name = "Product Owner")]
 		public string ProductOwner { get; set; }
-         
-		public string Status { get; set; }
+        [Required]
+        public string Status { get; set; }
         public string StatusClass { get { return Status.Replace(' ', '-'); } }
 
         [Display(Name = "Bootcamp Assigned")]
@@ -36,13 +38,16 @@ namespace IdeasTracker.Models
 		public int IsAdopted { get; set; }
 
 		[Display(Name = "Adopted By")]
-		public String AdoptedBy { get; set; }
+		public string AdoptedBy { get; set; }
 
 		[Display(Name = "What value can you add?")]
 		public string AdoptionValue { get; set; }
 
 		[Display(Name = "Adoption Reason")]
-		public String AdoptionReason { get; set; }
-         
-	}
+		public string AdoptionReason { get; set; }
+
+        [Display(Name = "Adoption Email Address")]
+        public string AdoptionEmailAddress { get; set; }
+
+    }
 }

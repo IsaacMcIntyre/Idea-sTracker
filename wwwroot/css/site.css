@@ -65,7 +65,7 @@ p, h1, h2, h3, h4 {
   /* Set the fixed height of the footer here */
   height: 90px;
   background-color: #323232;
-  line-height: 90px; /* Vertically center the text there */
+  line-height: 60px; /* Vertically center the text there */
 }
 
 .footer p {
@@ -258,7 +258,7 @@ select#status {
 
 /* Media Queries for Navbar */
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
     a.nav-link {
         padding: 1em 0em 1em 0em;
         border-bottom: 1px solid #d2d2d2;
@@ -317,11 +317,12 @@ a.AND-button:hover {
 .table thead th {
     background: #f3f3f3;
     font-size: 12px;
-
+    word-wrap:break-word;
 }
 
 .table th, .table td {
     vertical-align: unset;
+    word-wrap:break-word;
 }
 
 .table thead th {
@@ -396,6 +397,14 @@ color: #ff323b;
 .Adoption-Request {
     color: #feff00;
 
+}
+
+.Bootcamp-Assigned {
+    color: #607d8b;
+}
+
+.Bootcamp-Ready {
+    color: #9c27b0;
 }
 
 .links-link {
@@ -473,6 +482,14 @@ p.role-delete-mini-header {
     width: 50%;
 }
 
+#RoleIndex a.AND-button {
+    width: 100%;
+}
+
+#RoleDelete span {
+    font-weight: 400;
+}
+
 #RoleDelete a.btn.AND-button {
     width: 49%;
     margin-top: 1em;
@@ -484,3 +501,22 @@ p.role-delete-mini-header {
 #RoleDelete button.btn.AND-button:hover {
     background: #d00f18;
 }
+
+/* Table fixes 11:33 start*/
+
+
+@media (max-width: 500px) {
+    .AND-btn-create {
+    font-size: 0.75em;
+    height: 7em;
+    line-height: 1.75em;
+    }
+    .table thead th {
+        font-size: 0.75em;
+    }
+}
+
+/* image large hotfix on small displays */
+
+
+    
