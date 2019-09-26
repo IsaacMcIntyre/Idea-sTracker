@@ -35,7 +35,7 @@ namespace IdeasTracker.Business.Email
         public  void SendAdoptionEmail(string recipientEmail)
         {
             SendEmail(recipientEmail, "Adoption Request Received", "Thank you, your adoption request has been submitted. We will notify you when it is accepted or declined.");
-            SendEmail("emailsendingaddress@gmail.com", "Adoption Request Received", "There is a new adoption request on the IdeaTracker system. Please check the system to view.");
+            SendEmail("emailsendingtestaddress@gmail.com", "Adoption Request Received", "There is a new adoption request on the IdeaTracker system. Please check the system to view.");
         }
 
         public void SendAdoptionRejectionEmail(string recipientEmail)
