@@ -172,7 +172,8 @@ namespace IdeasTracker.Controllers
 
                 try
                 {
-                   await _backlogUow.AcceptAdoption(adoptRequestModel);
+                    string userEmail = HttpContext.User.Claims.ToList()[2].Value;
+                    await _backlogUow.AcceptAdoption(adoptRequestModel, userEmail);
 
                 }
                 catch (DbUpdateConcurrencyException)
@@ -203,7 +204,8 @@ namespace IdeasTracker.Controllers
 
                 try
                 {
-                    await _backlogUow.RejectAdoption(adoptRequestModel);
+                    string userEmail = HttpContext.User.Claims.ToList()[2].Value;
+                    await _backlogUow.RejectAdoption(adoptRequestModel, userEmail);
 
                 }
                 catch (DbUpdateConcurrencyException)

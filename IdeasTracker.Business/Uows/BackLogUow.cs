@@ -100,7 +100,7 @@ namespace IdeasTracker.Business.Uows
         }
 
 
-        public async Task AcceptAdoption(AdoptRequestModel adoptRequestModel)
+        public async Task AcceptAdoption(AdoptRequestModel adoptRequestModel, string userEmail)
         {
             var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == adoptRequestModel.Id);
 
@@ -110,10 +110,14 @@ namespace IdeasTracker.Business.Uows
             backlogItem.AdoptionReason = adoptRequestModel.AdoptionReason;
             _context.Update(backlogItem);
             await _context.SaveChangesAsync();
+            if (string.IsNullOrEmpty(backlogItem.AdoptionEmailAddress))
+            {
+                backlogItem.AdoptionEmailAddress = userEmail;
+            }
             _emailSender.SendAdoptionAcceptanceEmail(backlogItem.AdoptionEmailAddress);
         }
 
-        public async Task RejectAdoption(AdoptRequestModel adoptRequestModel)
+        public async Task RejectAdoption(AdoptRequestModel adoptRequestModel, string userEmail)
         {
             var backlogItem = await _context.BackLogs.FirstAsync(x => x.Id == adoptRequestModel.Id);
 
@@ -123,6 +127,10 @@ namespace IdeasTracker.Business.Uows
             backlogItem.AdoptionReason = string.Empty;
             _context.Update(backlogItem);
             await _context.SaveChangesAsync();
+            if (string.IsNullOrEmpty(backlogItem.AdoptionEmailAddress))
+            {
+                backlogItem.AdoptionEmailAddress = userEmail;
+            }
             _emailSender.SendAdoptionRejectionEmail(backlogItem.AdoptionEmailAddress);
         }
 
