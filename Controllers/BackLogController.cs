@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using IdeasTracker.Models;
 using Microsoft.AspNetCore.Authorization;
-using IdeasTracker.Email;
 using IdeasTracker.Business.Uows.Interfaces;
 using IdeasTracker.Constants;
 using System.Linq;
@@ -147,18 +146,13 @@ namespace IdeasTracker.Controllers
         [Authorize]
         public async Task<IActionResult> Adopt([Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backlogModel)
         {
-            List<System.Security.Claims.Claim> userClaims = HttpContext.User.Claims.ToList();
-            string userEmail = userClaims[2].Value;
-
-            MailSenderFeature.SendEmail("emailsendingtestaddress@gmail.com", "There has been a new request to adopt an idea.", "Adoption Request"); //email to club tensing
-            MailSenderFeature.SendEmail(userEmail, "Thank you, your adoption request has been submitted.", "Adoption Request"); //email to adopter
-
             if (ModelState.IsValid)
             {
                 try
                 { 
                     backlogModel.Status = IdeaStatuses.AdoptionRequest;
-                    await _backlogUow.AdoptIdeaAsync(backlogModel);
+                    string userEmail = HttpContext.User.Claims.ToList()[2].Value;
+                    await _backlogUow.AdoptIdeaAsync(backlogModel, userEmail);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
