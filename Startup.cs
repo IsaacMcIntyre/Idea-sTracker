@@ -59,6 +59,7 @@ namespace IdeasTracker
             services.AddTransient<IBackLogUow, BackLogUow>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IUserToUserModelConverter, UserToUserModelConverter>();
+            services.AddTransient<IBacklogToAdoptRequestModelConverter, BacklogToAdoptRequestModelCoverter>();
             services.AddTransient<IBacklogToBackLogModelConverter, BacklogToBackLogModelConverter>();
         }
 

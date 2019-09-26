@@ -10,12 +10,13 @@ namespace IdeasTracker.Business.Uows.Interfaces
         Task<BacklogModel> GetBackLogItemAsync(int? id);
         Task EditBackLogItemAsync(BacklogModel backlogModel);
         Task CreateBackLogItemAsync(CreateIdeaModel createIdeaModel);
-        Task AdoptIdeaAsync(BacklogModel backlogModel, string userEmail);
+        Task AdoptIdeaAsync(AdoptRequestModel adoptRequestModel, string userEmail);
         Task DeleteBackLogItem(int? id);
         Task<bool> IsBackLogItemExistsAsync(int id);
-        Task AcceptAdoption(BacklogModel backlogModel);
-        Task RejectAdoption(BacklogModel backlogModel);
-
+        Task AcceptAdoption(AdoptRequestModel adoptRequestModel);
+        Task RejectAdoption(AdoptRequestModel adoptRequestModel);
+        Task<(byte[], string)> ExportBacklog();
+        Task<AdoptRequestModel> GetBackLogAdoptableItem(int? id);
 
     }
 }
