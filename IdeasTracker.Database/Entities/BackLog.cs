@@ -24,10 +24,12 @@ namespace IdeasTracker.Database.Entities
 
         public int IsAdopted { get; set; }
 
-        public String AdoptedBy { get; set; }
+        public string AdoptedBy { get; set; }
 
-        public String AdoptionValue { get; set; }
+        public string AdoptionValue { get; set; }
 
-        public String AdoptionReason { get; set; }
+        public string AdoptionReason { get; set; }
+
+        public string AdoptionEmailAddress { get; set; }
     }
 }
