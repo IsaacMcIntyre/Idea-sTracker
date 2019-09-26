@@ -122,6 +122,10 @@
                   @if (item.Status == IdeasTracker.Constants.IdeaStatuses.ProjectAdoptable){ 
                         <a asp-action="Adopt" asp-route-id="@item.Id" class="btn AND-button"><i class="far fa-handshake"></i> Adopt</a>
                     }
+                  @if (item.Status == IdeasTracker.Constants.IdeaStatuses.AdoptionRequest && User.IsInRole(IdeasTracker.Constants.Roles.ClubTenzing))
+                  {
+                      <a asp-action="Adopt" asp-route-id="@item.Id" class="btn AND-button"><i class="far fa-handshake"></i> Adopt</a>
+                  }
                   </div>
                 </td>
             </tr>

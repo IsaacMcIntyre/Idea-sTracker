@@ -93,7 +93,6 @@
     <div class="col-lg-12" id="editButtons"> 
         @if (User.IsInRole(IdeasTracker.Constants.Roles.ClubTenzing))
         {
-            <a class="btn AND-button" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-pencil-alt"></i> Edit</a>
             <a class="btn AND-button" asp-action="Delete" asp-route-id="@Model.Id"><i class="fas fa-trash-alt"></i> Delete</a>
         }
             
