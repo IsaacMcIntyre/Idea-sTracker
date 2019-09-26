@@ -59,7 +59,7 @@ namespace IdeasTracker.Business.Uows
 
             if (!string.IsNullOrWhiteSpace(backlogModel.BootcampAssigned) && !string.IsNullOrWhiteSpace(backlogModel.ProductOwner))
             {
-                backlogItem.Status = IdeaStatuses.InBootcamp;
+                backlogItem.Status = IdeaStatuses.BootcampReady;
             }
 
 
