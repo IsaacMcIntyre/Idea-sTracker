@@ -81,6 +81,10 @@
 
         <div class="col-lg-4" id="adoptForm">
             <form asp-action="Adopt">
+                @Html.HiddenFor(model=>model.Id)
+                @Html.HiddenFor(model=>model.ProblemDescription)
+                @Html.HiddenFor(model=>model.CustomerProblem)
+                @Html.HiddenFor(model=>model.Status)
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="AdoptedBy" class="control-label"></label>
@@ -98,7 +102,17 @@
                     <span asp-validation-for="AdoptionReason" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <button type="submit" value="Adopt" class="btn AND-button"><i class="far fa-handshake"></i> Adopt</button>
+
+                    @if (User.IsInRole(IdeasTracker.Constants.Roles.ClubTenzing))
+                    {
+                       <input type="submit" value="Accept" class="btn btn-primary" asp-route-id="@Model.Id" asp-action="AdoptAccept" />
+                       <input type="submit" value="Reject" class="btn btn-primary" asp-route-id="@Model.Id" asp-action="AdoptReject" />
+
+                    }else{
+
+                        <input type="submit" value="Adopt" asp-route-id="@Model.Id" class="btn btn-primary" />
+
+                    }
                 </div>
             </form>
         </div>
