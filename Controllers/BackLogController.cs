@@ -8,6 +8,9 @@ using IdeasTracker.Business.Uows.Interfaces;
 using IdeasTracker.Constants;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text;
+using Newtonsoft.Json.Linq;
+using System;
 
 namespace IdeasTracker.Controllers
 {
@@ -198,6 +201,80 @@ namespace IdeasTracker.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        
+
+
+        [Authorize]
+        public async Task<IActionResult> Export()
+        {
+
+            var backlogList = await _backlogUow.GetAllBackLogItemsAsync();
+            StringBuilder builder = new StringBuilder();
+            // var a = backlogList.GetType().GetProperties().GetValue(0);
+
+            bool isFirstLine = true;
+
+            foreach (var backlogItem in backlogList)
+            {
+                bool isFirstCol = true;
+                JObject backlogProperties = JObject.FromObject(backlogItem);
+                if (isFirstLine)
+                {
+                    foreach (JProperty property in backlogProperties.Properties())
+                    {
+                        string value = property.Name;
+                        builder = ExportHelper(builder, value, isFirstCol);
+                        isFirstCol = false;
+                    }
+                    isFirstCol = true;
+                    isFirstLine = false;
+                    builder.Append(Environment.NewLine);
+                }
+
+
+                foreach (JProperty property in backlogProperties.Properties())
+                {
+                    string value = property.Value.ToString();
+
+                    builder = ExportHelper(builder, value, isFirstCol);
+
+                    isFirstCol = false;
+                }
+
+                builder.Append(Environment.NewLine);
+
+
+            }
+
+
+
+            var bytes = new UTF8Encoding().GetBytes(builder.ToString());
+            return File(bytes, "text/csv", DateTime.Now.ToString("dd/MM/yyyy") + "-ideas-backlog");
+        }
+
+
+
+        public StringBuilder ExportHelper(StringBuilder builder, string value, bool isFirstCol)
+        {
+
+            if (!isFirstCol)
+            {
+                builder.Append(",");
+            }
+
+            if (value.IndexOfAny(new char[] { '"', ',' }) != -1)
+            {
+                builder.AppendFormat("\"{0}\"", value.Replace("\"", "\"\""));
+
+            }
+            else
+            {
+                builder.Append(value);
+
+            }
+
+            return builder;
+        }
+
+
     }
 }
