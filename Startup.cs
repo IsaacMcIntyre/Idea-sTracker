@@ -16,6 +16,8 @@ using IdeasTracker.Database.Context;
 using IdeasTracker.Business.Converters.Interfaces;
 using IdeasTracker.Business.Converters;
 using IdeasTracker.Business.Uows;
+using IdeasTracker.Business.Email;
+using IdeasTracker.Business.Email.Interfaces;
 
 namespace IdeasTracker
 {
@@ -55,6 +57,7 @@ namespace IdeasTracker
             services.AddTransient<IClaimsTransformation, ClaimsTransformation>();
             services.AddTransient<IUserUow, UserUow>();
             services.AddTransient<IBackLogUow, BackLogUow>();
+            services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IUserToUserModelConverter, UserToUserModelConverter>();
             services.AddTransient<IBacklogToBackLogModelConverter, BacklogToBackLogModelConverter>();
         }

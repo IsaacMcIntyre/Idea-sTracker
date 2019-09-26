@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using IdeasTracker.Models;
 using Microsoft.AspNetCore.Authorization;
-using IdeasTracker.Email;
 using IdeasTracker.Business.Uows.Interfaces;
 using IdeasTracker.Constants;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text;
+using Newtonsoft.Json.Linq;
+using System;
 
 namespace IdeasTracker.Controllers
 {
@@ -146,18 +148,13 @@ namespace IdeasTracker.Controllers
         [Authorize]
         public async Task<IActionResult> Adopt([Bind("Id, AdoptedBy, AdoptionValue, AdoptionReason")] BacklogModel backlogModel)
         {
-            List<System.Security.Claims.Claim> userClaims = HttpContext.User.Claims.ToList();
-            string userEmail = userClaims[2].Value;
-
-            MailSenderFeature.SendEmail("emailsendingtestaddress@gmail.com", "There has been a new request to adopt an idea.", "Adoption Request"); //email to club tensing
-            MailSenderFeature.SendEmail(userEmail, "Thank you, your adoption request has been submitted.", "Adoption Request"); //email to adopter
-
             if (ModelState.IsValid)
             {
                 try
                 { 
                     backlogModel.Status = IdeaStatuses.AdoptionRequest;
-                    await _backlogUow.AdoptIdeaAsync(backlogModel);
+                    string userEmail = HttpContext.User.Claims.ToList()[2].Value;
+                    await _backlogUow.AdoptIdeaAsync(backlogModel, userEmail);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -198,6 +195,80 @@ namespace IdeasTracker.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        
+
+
+        [Authorize]
+        public async Task<IActionResult> Export()
+        {
+
+            var backlogList = await _backlogUow.GetAllBackLogItemsAsync();
+            StringBuilder builder = new StringBuilder();
+            // var a = backlogList.GetType().GetProperties().GetValue(0);
+
+            bool isFirstLine = true;
+
+            foreach (var backlogItem in backlogList)
+            {
+                bool isFirstCol = true;
+                JObject backlogProperties = JObject.FromObject(backlogItem);
+                if (isFirstLine)
+                {
+                    foreach (JProperty property in backlogProperties.Properties())
+                    {
+                        string value = property.Name;
+                        builder = ExportHelper(builder, value, isFirstCol);
+                        isFirstCol = false;
+                    }
+                    isFirstCol = true;
+                    isFirstLine = false;
+                    builder.Append(Environment.NewLine);
+                }
+
+
+                foreach (JProperty property in backlogProperties.Properties())
+                {
+                    string value = property.Value.ToString();
+
+                    builder = ExportHelper(builder, value, isFirstCol);
+
+                    isFirstCol = false;
+                }
+
+                builder.Append(Environment.NewLine);
+
+
+            }
+
+
+
+            var bytes = new UTF8Encoding().GetBytes(builder.ToString());
+            return File(bytes, "text/csv", DateTime.Now.ToString("dd/MM/yyyy") + "-ideas-backlog");
+        }
+
+
+
+        public StringBuilder ExportHelper(StringBuilder builder, string value, bool isFirstCol)
+        {
+
+            if (!isFirstCol)
+            {
+                builder.Append(",");
+            }
+
+            if (value.IndexOfAny(new char[] { '"', ',' }) != -1)
+            {
+                builder.AppendFormat("\"{0}\"", value.Replace("\"", "\"\""));
+
+            }
+            else
+            {
+                builder.Append(value);
+
+            }
+
+            return builder;
+        }
+
+
     }
 }

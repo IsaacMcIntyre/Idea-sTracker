@@ -10,7 +10,7 @@ namespace IdeasTracker.Business.Uows.Interfaces
         Task<BacklogModel> GetBackLogItemAsync(int? id);
         Task EditBackLogItemAsync(BacklogModel backlogModel);
         Task CreateBackLogItemAsync(CreateIdeaModel createIdeaModel);
-        Task AdoptIdeaAsync(BacklogModel backlogModel);
+        Task AdoptIdeaAsync(BacklogModel backlogModel, string userEmail);
         Task DeleteBackLogItem(int? id);
         Task<bool> IsBackLogItemExistsAsync(int id);
     }

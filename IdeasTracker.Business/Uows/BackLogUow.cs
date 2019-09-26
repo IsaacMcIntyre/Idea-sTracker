@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using IdeasTracker.Database.Entities;
 using IdeasTracker.Business.Constants;
+using System;
+using System.Net.Mail;
+using System.Net;
+using IdeasTracker.Business.Email.Interfaces;
 
 namespace IdeasTracker.Business.Uows
 {
@@ -14,12 +18,14 @@ namespace IdeasTracker.Business.Uows
     {
         private readonly ApplicationDbContext _context;
         private readonly IBacklogToBackLogModelConverter _backlogToBackLogModelConverter;
+        private readonly IEmailSender _emailSender;
 
 
-        public BackLogUow(ApplicationDbContext context, IBacklogToBackLogModelConverter backlogToBackLogModelConverter)
+        public BackLogUow(ApplicationDbContext context, IBacklogToBackLogModelConverter backlogToBackLogModelConverter, IEmailSender emailSender)
         {
             _context = context;
             _backlogToBackLogModelConverter = backlogToBackLogModelConverter;
+            _emailSender = emailSender;
         }
 
         public async Task<List<BacklogModel>> GetAllBackLogItemsAsync()
@@ -59,7 +65,7 @@ namespace IdeasTracker.Business.Uows
 
             if (!string.IsNullOrWhiteSpace(backlogModel.BootcampAssigned) && !string.IsNullOrWhiteSpace(backlogModel.ProductOwner))
             {
-                backlogItem.Status = IdeaStatuses.InBootcamp;
+                backlogItem.Status = IdeaStatuses.BootcampReady;
             }
 
 
@@ -95,7 +101,7 @@ namespace IdeasTracker.Business.Uows
             await _context.SaveChangesAsync();
         }
 
-        public async Task AdoptIdeaAsync(BacklogModel backlogModel)
+        public async Task AdoptIdeaAsync(BacklogModel backlogModel, string userEmail)
         { 
             var backlogiem = await _context.BackLogs.FirstAsync(x => x.Id == backlogModel.Id);
             if (backlogiem != null)
@@ -105,8 +111,8 @@ namespace IdeasTracker.Business.Uows
                 backlogiem.AdoptionReason = backlogModel.AdoptionReason;
                 _context.Update(backlogiem);
                 await _context.SaveChangesAsync();
-                //TODO: Send Email 
-
+                //TODO: Send Email
+                _emailSender.SendAdoptionEmail(userEmail);
             }
         }
 
@@ -117,7 +123,7 @@ namespace IdeasTracker.Business.Uows
             {
                 _context.Remove(backLogItem);
                 await _context.SaveChangesAsync();
-            }
+            }            
         }
 
         public async Task<bool> IsBackLogItemExistsAsync(int id)

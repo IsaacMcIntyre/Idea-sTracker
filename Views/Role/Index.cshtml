@@ -5,8 +5,8 @@
 }
 
 @section scripts{
-<script>$('#image').css('background-image', 'url(https://i.imgur.com/5oNDsrm.png)');
-    $("#image-text").text("Assign Roles to Andis");</script>
+<script>$('#image').css('background-image', 'url(https://i.imgur.com/rbshyfB.jpg)');
+    $("#image-text").text("Lets see what everyones role\'s are.");</script>
 }
  
 <div class="table-responsive">
@@ -46,10 +46,10 @@
           <td>
               @Html.DisplayFor(modelItem => item.Role)
           </td>
-          <td>
+          <td> 
               <a asp-action="Edit" asp-route-id="@item.Id" class="btn AND-button mb-1"><i class="fas fa-pencil-alt"></i>Edit</a> 
           </td>
-          <td>
+          <td> 
               <a asp-action="Delete" asp-route-id="@item.Id" class="btn AND-button"><i class="fas fa-trash-alt"></i> Delete</a> 
           </td>
       </tr>
@@ -57,6 +57,6 @@
     </tbody>
 </table>
    <p> 
-       <a class="AND-button" asp-action="Create"><i class="fas fa-comment-medical"></i> Create New</a> 
+       <a class="btn AND-button" asp-action="Create"><i class="fas fa-user-plus"></i> Create New</a> 
    </p>
     </div>
