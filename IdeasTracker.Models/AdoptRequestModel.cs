@@ -36,6 +36,7 @@ namespace IdeasTracker.Models
         [Display(Name = "Is Adopted")]
         public int IsAdopted { get; set; }
 
+        [Required]
         [Display(Name = "Adopted By")]
         public string AdoptedBy { get; set; }
 
@@ -47,7 +48,6 @@ namespace IdeasTracker.Models
         [Display(Name = "Adoption Reason")]
         public string AdoptionReason { get; set; }
 
-        [Required]
         [Display(Name = "Adoption Email Address")]
         public string AdoptionEmailAddress { get; set; }
     }

@@ -85,6 +85,10 @@
                 @Html.HiddenFor(model=>model.ProblemDescription)
                 @Html.HiddenFor(model=>model.CustomerProblem)
                 @Html.HiddenFor(model=>model.Status)
+                @Html.HiddenFor(model=>model.ProductOwner)
+                @Html.HiddenFor(model=>model.Links)
+                @Html.HiddenFor(model=>model.BootcampAssigned)
+                @Html.HiddenFor(model=>model.SolutionDescription)
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="AdoptedBy" class="control-label"></label>

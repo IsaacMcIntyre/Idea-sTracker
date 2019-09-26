@@ -133,7 +133,7 @@ namespace IdeasTracker.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Adopt([Bind("Id,  CustomerProblem,ProblemDescription,Status,AdoptedBy, AdoptionValue, AdoptionReason")] AdoptRequestModel adoptRequestModel)
+        public async Task<IActionResult> Adopt([Bind("Id, CustomerProblem,ProblemDescription,Status,ProductOwner,Links,BootcampAssigned,SolutionDescription,AdoptedBy, AdoptionValue, AdoptionReason")] AdoptRequestModel adoptRequestModel)
         {
             if (ModelState.IsValid)
             {
@@ -161,7 +161,7 @@ namespace IdeasTracker.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> AdoptAccept(int Id, [Bind("Id, CustomerProblem,ProblemDescription,Status, StatusClass,AdoptedBy, AdoptionValue, AdoptionReason")] AdoptRequestModel adoptRequestModel)
+        public async Task<IActionResult> AdoptAccept(int Id, [Bind("Id, CustomerProblem,ProblemDescription,Status,ProductOwner,Links,BootcampAssigned,SolutionDescription,AdoptedBy, AdoptionValue, AdoptionReason")] AdoptRequestModel adoptRequestModel)
         { 
             if (ModelState.IsValid)
             {
@@ -192,7 +192,7 @@ namespace IdeasTracker.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> AdoptReject(int Id, [Bind("Id, CustomerProblem,ProblemDescription,Status, StatusClass,AdoptedBy, AdoptionValue, AdoptionReason")] AdoptRequestModel adoptRequestModel)
+        public async Task<IActionResult> AdoptReject(int Id, [Bind("Id, CustomerProblem,ProblemDescription,Status,ProductOwner,Links,BootcampAssigned,SolutionDescription,AdoptedBy, AdoptionValue, AdoptionReason")] AdoptRequestModel adoptRequestModel)
         {
             if (ModelState.IsValid)
             {
